@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PSS_Ground : MonoBehaviour
+public class PES_Grounded : MonoBehaviour
 {
     [Header("States")]
     public bool IsGrounded;
@@ -32,8 +32,6 @@ public class PSS_Ground : MonoBehaviour
 
     RaycastHit groundHit;
     RaycastHit groundedHit;
-
-    [SerializeField] bool isClimbing;
 
     float groundInfoRadius;
     float realDistToGround;

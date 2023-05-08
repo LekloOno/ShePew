@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
-This script Processes the Arena Action map running inputs with the playerDir into a WishDir,
+This script Processes the Arena Action map running inputs with the flatDir into a WishDir,
 so that each "WASD" horizontal movements scripts don't have to redo this quick operation.
 
 It also stores other general informations about these "WASD" inputs.
@@ -17,7 +17,7 @@ public class PIA_RunningProcessing : MonoBehaviour
 
     private PI_AMapsManager inputsMM;
 
-    [SerializeField] Transform playerDir;
+    [SerializeField] Transform flatDir;
     [SerializeField] Transform cameraDir;
 
     void FixedUpdate()
@@ -27,7 +27,7 @@ public class PIA_RunningProcessing : MonoBehaviour
         {
             LastBackward = Time.time;
         }
-        WishDir = playerDir.forward * RunningAxis.y + playerDir.right * RunningAxis.x;
+        WishDir = flatDir.forward * RunningAxis.y + flatDir.right * RunningAxis.x;
         SpaceWishDir = cameraDir.forward * RunningAxis.y + cameraDir.right * RunningAxis.x;
     }
 }
