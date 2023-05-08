@@ -15,7 +15,7 @@ public class PIA_RunningProcessing : MonoBehaviour
     public Vector2 RunningAxis;
     public float LastBackward = Mathf.NegativeInfinity;
 
-    private PI_AMapsManager inputsMM;
+    [SerializeField] private PI_AMapsManager inputsMM;
 
     [SerializeField] Transform flatDir;
     [SerializeField] Transform cameraDir;
