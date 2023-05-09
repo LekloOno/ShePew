@@ -18,7 +18,7 @@ public class PIA_RunningProcessing : MonoBehaviour
     [SerializeField] private PI_AMapsManager inputsMM;
 
     [SerializeField] Transform flatDir;
-    [SerializeField] Transform cameraDir;
+    [SerializeField] Transform sightPosition;
 
     void FixedUpdate()
     {
@@ -28,6 +28,6 @@ public class PIA_RunningProcessing : MonoBehaviour
             LastBackward = Time.time;
         }
         WishDir = flatDir.forward * RunningAxis.y + flatDir.right * RunningAxis.x;
-        SpaceWishDir = cameraDir.forward * RunningAxis.y + cameraDir.right * RunningAxis.x;
+        SpaceWishDir = sightPosition.forward * RunningAxis.y + sightPosition.right * RunningAxis.x;
     }
 }

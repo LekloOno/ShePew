@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class DEBUG_AccelVisualizer : MonoBehaviour
+{
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private DATA_AirControl data;
+    [SerializeField] private Camera camera;
+    [SerializeField] private PIS_Combat inputHandler;
+    [SerializeField] private Image image;
+    public float Angle;
+    public float AngleDiff;
+
+    void FixedUpdate(){
+        Vector3 projected = Vector3.ProjectOnPlane(rb.velocity, Vector3.up);
+        Angle = MovementPhysics.MaxAccelAngle(rb.velocity.magnitude, data.MaxSpeed, data.MaxAccel);
+        Vector3 right = Quaternion.AngleAxis(Angle, Vector3.up) * projected;
+        Vector3 left = Quaternion.AngleAxis(-Angle, Vector3.up) * projected;
+
+        Vector3 closest = Mathf.Abs(Vector3.Angle(inputHandler.WishDir, right)) > Mathf.Abs(Vector3.Angle(inputHandler.WishDir, left)) ? left : right;
+        AngleDiff = (Angle - Vector3.Angle(projected, inputHandler.WishDir)) * (closest == left ? -1 : 1);
+        Vector3 camClosest = Quaternion.AngleAxis(AngleDiff, Vector3.up) * new Vector3(camera.transform.forward.x, 0, camera.transform.forward.z);
+
+        Debug.Log(camClosest + " | " + camera.transform.forward);
+
+        image.transform.position = camera.WorldToScreenPoint(camera.transform.position - camClosest);
+    }
+}

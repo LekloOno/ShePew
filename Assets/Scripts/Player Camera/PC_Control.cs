@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PC_Control : MonoBehaviour
 {
@@ -10,19 +11,24 @@ public class PC_Control : MonoBehaviour
     public float X_Sens;
     public float Y_Sens;
 
-    [SerializeField] Transform cameraPosition;
-    [SerializeField] Transform flatDir;
-    [SerializeField] PI_AMapsManager inputHandler;
-    [SerializeField] float globalSensAdjustment;
+    [SerializeField] Transform _sightPosition;
+    [SerializeField] Transform _cameraPosition;
+    [SerializeField] Transform _flatDir;
+    [SerializeField] PI_AMapsManager _inputHandler;
+    [SerializeField] float _globalSensAdjustment;
 
-    float xRotation;
-    float yRotation;
+    float _xRotation;
+    float _yRotation;
+
+
+    public event EventHandler ApplyCameraEffects;
 
     void Update()
     {
         OnLook();
-        transform.position = cameraPosition.position;
-        transform.rotation = cameraPosition.rotation;
+        transform.position = _cameraPosition.position;
+        transform.rotation = _cameraPosition.rotation;
+        ApplyCameraEffects?.Invoke(this, EventArgs.Empty);
     }
 
     void OnEnable()
@@ -33,14 +39,14 @@ public class PC_Control : MonoBehaviour
 
     public void OnLook()
     {
-        float lookX = inputHandler.playerInputActions.Arena.Look.ReadValue<Vector2>().x*globalSensAdjustment*(X_Sens+Sens);
-        float lookY = inputHandler.playerInputActions.Arena.Look.ReadValue<Vector2>().y*globalSensAdjustment*(Y_Sens+Sens);
+        float lookX = _inputHandler.playerInputActions.Arena.Look.ReadValue<Vector2>().x*_globalSensAdjustment*(X_Sens+Sens);
+        float lookY = _inputHandler.playerInputActions.Arena.Look.ReadValue<Vector2>().y*_globalSensAdjustment*(Y_Sens+Sens);
 
-        xRotation = Mathf.Clamp(xRotation-lookY, -90f, 90f);
+        _xRotation = Mathf.Clamp(_xRotation-lookY, -90f, 90f);
 
-        yRotation += lookX;
+        _yRotation += lookX;
 
-        cameraPosition.rotation = Quaternion.Euler(xRotation, yRotation, ZRotation);
-        flatDir.rotation = Quaternion.Euler(0, yRotation, ZRotation);
+        _sightPosition.rotation = Quaternion.Euler(_xRotation, _yRotation, ZRotation);
+        _flatDir.rotation = Quaternion.Euler(0, _yRotation, ZRotation);
     }
 }
