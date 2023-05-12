@@ -24,5 +24,5 @@ public class DATA_Slide : DATA_BaseAction
     //
     //*This exponent is used on the force multiplier, which will be between 0 and 1. real force = SlideXForce * (Time spent/SlideDecayRecover)^SlideDecayStrength
 
-    public PhysicMaterial SlideMat;             //Physic Material used when sliding
+    public float Drag;             //Drag used when sliding
 }

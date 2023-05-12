@@ -17,8 +17,8 @@ public class PMA_Ability<T> : PM_BaseAction<T> where T : DATA_BaseAction
 
     protected virtual void Start()
     {
-        inputMapsManager.action.performed += StartAbility;
-        inputMapsManager.action.canceled += StopAbility;
+        action.performed += StartAbility;
+        action.canceled += StopAbility;
     }
 
     public virtual void StartAbility(InputAction.CallbackContext obj){}

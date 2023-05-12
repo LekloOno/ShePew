@@ -8,8 +8,8 @@ public class DEBUG_AccelVisualizer : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private DATA_AirControl data;
-    [SerializeField] private Camera camera;
-    [SerializeField] private PIS_Combat inputHandler;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private PIA_RunningProcessing inputHandler;
     [SerializeField] private Image image;
     public float Angle;
     public float AngleDiff;
@@ -22,10 +22,10 @@ public class DEBUG_AccelVisualizer : MonoBehaviour
 
         Vector3 closest = Mathf.Abs(Vector3.Angle(inputHandler.WishDir, right)) > Mathf.Abs(Vector3.Angle(inputHandler.WishDir, left)) ? left : right;
         AngleDiff = (Angle - Vector3.Angle(projected, inputHandler.WishDir)) * (closest == left ? -1 : 1);
-        Vector3 camClosest = Quaternion.AngleAxis(AngleDiff, Vector3.up) * new Vector3(camera.transform.forward.x, 0, camera.transform.forward.z);
+        Vector3 camClosest = Quaternion.AngleAxis(AngleDiff, Vector3.up) * new Vector3(_camera.transform.forward.x, 0, _camera.transform.forward.z);
 
-        Debug.Log(camClosest + " | " + camera.transform.forward);
+        Debug.Log(camClosest + " | " + _camera.transform.forward);
 
-        image.transform.position = camera.WorldToScreenPoint(camera.transform.position - camClosest);
+        image.transform.position = _camera.WorldToScreenPoint(_camera.transform.position - camClosest);
     }
 }

@@ -14,7 +14,6 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
 
     [SerializeField] Transform player;
     [SerializeField] Transform playerDir;
-    [SerializeField] PSS_Capsule pss_Capsule;
     [SerializeField] PMA_GroundControl groundControl;
     [SerializeField] PMA_AirControl airControl;
     [SerializeField] PMA_GroundControl crouchControl;
@@ -49,7 +48,7 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
         float realForce = Mathf.Pow(Mathf.Min(data.SlideDecayRecover, Time.time-startTime)/data.SlideDecayRecover,data.SlideDecayStrength);
         startTime = Time.time;
         InitiateSlide();
-        rb.AddForce(inputHandler.WishDir * data.SlideXForce * realForce * (_groundState.IsGrounded ? 1 : data.AirForceMultiplier), ForceMode.Impulse);
+        rb.AddForce(_runningInput.WishDir * data.SlideXForce * realForce * (_groundState.IsGrounded ? 1 : data.AirForceMultiplier), ForceMode.Impulse);
         OnSlideStarted?.Invoke(this, EventArgs.Empty);
     }
 
@@ -57,9 +56,7 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
     {
         Activate(true);
         currentScale = slideYScale;
-        scaleSpeed = yScaleDownSpeed;
-        pss_Capsule.CurrentBaseMat = data.SlideMat;
-        rb.drag = 0;
+        rb.drag = data.Drag;
         OnFixedUpdate += UpdateCrouch;
     }
 

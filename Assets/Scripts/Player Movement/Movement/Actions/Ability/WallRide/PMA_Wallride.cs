@@ -126,10 +126,10 @@ public class PMA_Wallride : PMA_Ability<DATA_Wallride>
             _wallNormal = rb.transform.position - wallClosestPoint;
             WallLine = Vector3.Cross(_wallNormal, Vector3.up).normalized;
             Vector3 localWishDir;
-            if(inputHandler.RunningAxis.y == 0)
-                localWishDir = _playerDir.forward * 1 + _playerDir.right * inputHandler.RunningAxis.x;
+            if(_runningInput.RunningAxis.y == 0)
+                localWishDir = _playerDir.forward * 1 + _playerDir.right * _runningInput.RunningAxis.x;
             else
-                localWishDir = inputHandler.WishDir;
+                localWishDir = _runningInput.WishDir;
             localWishDir = (Vector3.Dot(WallLine, localWishDir)*WallLine).normalized;
             rb.AddForce(Mathf.Max(Mathf.Min(_rideRealForce*data.RideMaxSpeed - Vector3.Dot(localWishDir, rb.velocity), data.RideMaxAccel*_rideRealForce*data.RideMaxSpeed*Time.fixedDeltaTime),0)*localWishDir, ForceMode.VelocityChange);
             rb.AddForce(Physics.gravity * Mathf.Pow(flatTimeSpent,1.5f) * Time.fixedDeltaTime, ForceMode.VelocityChange);

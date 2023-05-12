@@ -27,6 +27,6 @@ public class PMA_AirControl : PMA_SurfaceControl<DATA_AirControl>
     void OnAirBorn(object sender, EventArgs e)
     {
         rb.drag = data.Drag;
-        rb.AddForce(MovementPhysics.Acceleration(data.MaxSpeed, data.MaxAccel, rb.velocity, inputHandler.WishDir, inputHandler.WishDir), ForceMode.VelocityChange);
+        rb.AddForce(MovementPhysics.Acceleration(data.MaxSpeed, data.MaxAccel, rb.velocity, _runningInput.WishDir, _runningInput.WishDir), ForceMode.VelocityChange);
     }
 }

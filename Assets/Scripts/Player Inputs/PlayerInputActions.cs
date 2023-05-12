@@ -80,6 +80,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slide"",
+                    ""type"": ""Button"",
+                    ""id"": ""37ec06e2-a870-49ab-bf60-4f1715d496da"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -234,6 +243,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98b9c7e0-c221-48b4-92ef-5b81657db7a8"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -827,6 +847,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Arena_Crouch = m_Arena.FindAction("Crouch", throwIfNotFound: true);
         m_Arena_Jump = m_Arena.FindAction("Jump", throwIfNotFound: true);
         m_Arena_Sprint = m_Arena.FindAction("Sprint", throwIfNotFound: true);
+        m_Arena_Slide = m_Arena.FindAction("Slide", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -904,6 +925,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Arena_Crouch;
     private readonly InputAction m_Arena_Jump;
     private readonly InputAction m_Arena_Sprint;
+    private readonly InputAction m_Arena_Slide;
     public struct ArenaActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -914,6 +936,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_Arena_Crouch;
         public InputAction @Jump => m_Wrapper.m_Arena_Jump;
         public InputAction @Sprint => m_Wrapper.m_Arena_Sprint;
+        public InputAction @Slide => m_Wrapper.m_Arena_Slide;
         public InputActionMap Get() { return m_Wrapper.m_Arena; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -941,6 +964,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Sprint.started -= m_Wrapper.m_ArenaActionsCallbackInterface.OnSprint;
                 @Sprint.performed -= m_Wrapper.m_ArenaActionsCallbackInterface.OnSprint;
                 @Sprint.canceled -= m_Wrapper.m_ArenaActionsCallbackInterface.OnSprint;
+                @Slide.started -= m_Wrapper.m_ArenaActionsCallbackInterface.OnSlide;
+                @Slide.performed -= m_Wrapper.m_ArenaActionsCallbackInterface.OnSlide;
+                @Slide.canceled -= m_Wrapper.m_ArenaActionsCallbackInterface.OnSlide;
             }
             m_Wrapper.m_ArenaActionsCallbackInterface = instance;
             if (instance != null)
@@ -963,6 +989,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
+                @Slide.started += instance.OnSlide;
+                @Slide.performed += instance.OnSlide;
+                @Slide.canceled += instance.OnSlide;
             }
         }
     }
@@ -1125,6 +1154,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnSlide(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

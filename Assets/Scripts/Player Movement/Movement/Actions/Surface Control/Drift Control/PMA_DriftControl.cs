@@ -8,7 +8,6 @@ public class PMA_DriftControl : PMA_SurfaceControl<DATA_DriftControl>
     [Header("Specifics")]
     [SerializeField] PMA_Slide slideHandler;
     [SerializeField] PMA_SuperJump _superjumpHandler;
-    [SerializeField] PSS_Capsule pss_Capsule;
     [SerializeField] Transform playerDir;
     Vector3 appliedDir;
 
@@ -51,12 +50,11 @@ public class PMA_DriftControl : PMA_SurfaceControl<DATA_DriftControl>
         }
         else
             slideTime += Time.fixedDeltaTime;
-        pss_Capsule.CurrentBaseMat = data.Mat; 
         rb.drag = data.Drag;
-        appliedDir = Vector3.ProjectOnPlane(inputHandler.WishDir, _groundState.GroundNormal).normalized;
+        appliedDir = Vector3.ProjectOnPlane(_runningInput.WishDir, _groundState.GroundNormal).normalized;
         Vector3 perp = Vector3.Cross(Vector3.up, playerDir.forward).normalized;
         Debug.DrawRay(transform.position, -Vector3.Dot(rb.velocity, perp)*perp);
-        rb.AddForce(-Vector3.Dot(rb.velocity, perp)*perp*Time.fixedDeltaTime*data.TractionDrag + MovementPhysics.Acceleration(data.MaxSpeed, data.MaxAccel, rb.velocity, inputHandler.WishDir, appliedDir), ForceMode.VelocityChange);
+        rb.AddForce(-Vector3.Dot(rb.velocity, perp)*perp*Time.fixedDeltaTime*data.TractionDrag + MovementPhysics.Acceleration(data.MaxSpeed, data.MaxAccel, rb.velocity, _runningInput.WishDir, appliedDir), ForceMode.VelocityChange);
     }
 
     void Drift_OnSlideStoped(object sender, EventArgs e)
@@ -68,7 +66,7 @@ public class PMA_DriftControl : PMA_SurfaceControl<DATA_DriftControl>
     {
         //cacheHeight = _groundState.GroundHeight;
         cacheVelocity = -rb.velocity.y;
-        if(/*cacheHeight < data.MaxHeight && */!_groundState.IsGrounded && cacheVelocity > 0 && Time.time-inputHandler.LastBackward < data.BackBuffer)
+        if(/*cacheHeight < data.MaxHeight && */!_groundState.IsGrounded && cacheVelocity > 0 && Time.time-_runningInput.LastBackward < data.BackBuffer)
         {
             float maxVel = Mathf.Sqrt(2*-Physics.gravity.y*(data.MaxHeight-1));
             float x = cacheVelocity/maxVel;

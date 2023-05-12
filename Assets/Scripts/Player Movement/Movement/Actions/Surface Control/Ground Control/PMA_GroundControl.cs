@@ -6,7 +6,6 @@ using System;
 public class PMA_GroundControl : PMA_SurfaceControl<DATA_GroundControl>
 {
     [Header("Specifics")]
-    [SerializeField] PSS_Capsule pss_Capsule;
     Vector3 appliedDir;
 
     void Start()
@@ -30,9 +29,8 @@ public class PMA_GroundControl : PMA_SurfaceControl<DATA_GroundControl>
 
     void OnGrounded(object sender, EventArgs e)
     {
-        pss_Capsule.CurrentBaseMat = data.Mat; 
         rb.drag = data.Drag;
-        appliedDir = Vector3.ProjectOnPlane(inputHandler.WishDir, _groundState.GroundNormal).normalized;
-        rb.AddForce(MovementPhysics.Acceleration(data.MaxSpeed, data.MaxAccel, rb.velocity, inputHandler.WishDir, appliedDir), ForceMode.VelocityChange);
+        appliedDir = Vector3.ProjectOnPlane(_runningInput.WishDir, _groundState.GroundNormal).normalized;
+        rb.AddForce(MovementPhysics.Acceleration(data.MaxSpeed, data.MaxAccel, rb.velocity, _runningInput.WishDir, appliedDir), ForceMode.VelocityChange);
     }
 }
