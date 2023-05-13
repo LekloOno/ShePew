@@ -26,6 +26,7 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
     {
         action = inputMapsManager.playerInputActions.Arena.Jump;
         base.Start();
+        
         _groundState.OnLeavingGround += Jump_OnLeavingGround;
         _groundState.OnLanding += Jump_OnLanding;
     }

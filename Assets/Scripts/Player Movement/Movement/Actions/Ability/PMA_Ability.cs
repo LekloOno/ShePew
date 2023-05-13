@@ -8,7 +8,7 @@ public class PMA_Ability<T> : PM_BaseAction<T> where T : DATA_BaseAction
 {
     public event EventHandler OnFixedUpdate;
     protected InputAction action;
-    protected PI_AMapsManager inputMapsManager;
+    [SerializeField] protected PI_AMapsManager inputMapsManager;
 
     protected virtual void FixedUpdate()
     {

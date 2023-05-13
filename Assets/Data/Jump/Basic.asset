@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db05f2fac14160044b1f7e3435a6d54b, type: 3}
+  m_Name: Basic
+  m_EditorClassIdentifier: 
+  HeldJumpForce: 3.8
+  TapJumpForce: 4
+  PreYMulltiplier: 0
+  HeldJumpCD: 0.3
+  HeldJumpDelay: 0
+  HeldJumpThreshold: 114.4
+  JumpDecayRecover: 0
+  JumpDecayStrength: 1
+  PreJumpCache: 0.03

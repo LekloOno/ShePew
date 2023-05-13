@@ -7,7 +7,7 @@ using TMPro;
 public class DEBUG_AccelVisualizer : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private DATA_AirControl data;
+    [SerializeField] private PM_DataContainer dataContainer;
     [SerializeField] private Camera _camera;
     [SerializeField] private PIA_RunningProcessing inputHandler;
     [SerializeField] private Image image;
@@ -16,7 +16,7 @@ public class DEBUG_AccelVisualizer : MonoBehaviour
 
     void FixedUpdate(){
         Vector3 projected = Vector3.ProjectOnPlane(rb.velocity, Vector3.up);
-        Angle = MovementPhysics.MaxAccelAngle(rb.velocity.magnitude, data.MaxSpeed, data.MaxAccel);
+        Angle = MovementPhysics.MaxAccelAngle(rb.velocity.magnitude, dataContainer.Data.MaxSpeed, dataContainer.Data.MaxAccel);
         Vector3 right = Quaternion.AngleAxis(Angle, Vector3.up) * projected;
         Vector3 left = Quaternion.AngleAxis(-Angle, Vector3.up) * projected;
 

@@ -11,7 +11,7 @@ It also stores other general informations about these "WASD" inputs.
 public class PIA_RunningProcessing : MonoBehaviour
 {
     public Vector3 SpaceWishDir;
-    public Vector2 WishDir;
+    public Vector3 WishDir;
     public Vector2 RunningAxis;
     public float LastBackward = Mathf.NegativeInfinity;
 

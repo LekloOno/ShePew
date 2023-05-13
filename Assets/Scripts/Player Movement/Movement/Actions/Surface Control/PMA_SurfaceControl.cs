@@ -7,6 +7,7 @@ public class PMA_SurfaceControl<T> : PM_BaseAction<T> where T : DATA_SurfaceCont
 {
 
     public event EventHandler OnFixedUpdate;
+    [SerializeField] protected PM_DataContainer dataContainer;
     
     protected virtual void Awake()
     {
@@ -18,6 +19,12 @@ public class PMA_SurfaceControl<T> : PM_BaseAction<T> where T : DATA_SurfaceCont
         _groundState.OnLanding -= SurfaceControl_OnLandingSurface;
         _groundState.OnLeavingGround -= SurfaceControl_OnLeavingSurface;
     }*/
+
+    public virtual void ActivateData(){
+        if(dataContainer != null){
+            dataContainer.Data = data;
+        }
+    }
 
     public virtual void SurfaceControl_OnLandingSurface(object sender, EventArgs e){}
 

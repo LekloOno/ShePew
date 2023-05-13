@@ -54,13 +54,13 @@ public class PC_Bobbing : MonoBehaviour
 
         CheckMotion();
         ResetPosition();
-        _camera.LookAt(FocusTarget());
+        //_camera.LookAt(FocusTarget());
     }
-
+/*
     private Vector3 FocusTarget()
     {
         Vector3 pos = new Vector3(transform.position.x, transform.position.y + _cameraHolder.localPosition.y, transform.position.z);
         pos += _cameraHolder.forward * 15.0f;
         return pos;
-    }
+    }*/
 }

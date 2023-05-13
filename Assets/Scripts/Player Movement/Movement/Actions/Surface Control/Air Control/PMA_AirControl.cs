@@ -21,12 +21,13 @@ public class PMA_AirControl : PMA_SurfaceControl<DATA_AirControl>
 
     public override void SurfaceControl_OnLeavingSurface(object sender, EventArgs e)
     {
+        ActivateData();
+        rb.drag = data.Drag;
         OnFixedUpdate += OnAirBorn;
     }
 
     void OnAirBorn(object sender, EventArgs e)
     {
-        rb.drag = data.Drag;
         rb.AddForce(MovementPhysics.Acceleration(data.MaxSpeed, data.MaxAccel, rb.velocity, _runningInput.WishDir, _runningInput.WishDir), ForceMode.VelocityChange);
     }
 }
