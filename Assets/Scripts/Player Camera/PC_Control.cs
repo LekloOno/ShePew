@@ -26,8 +26,8 @@ public class PC_Control : MonoBehaviour
     void Update()
     {
         OnLook();
-        transform.position = _cameraPosition.position;
-        transform.rotation = _cameraPosition.rotation;
+        transform.position = _sightPosition.position;
+        transform.rotation = _sightPosition.rotation;
         ApplyCameraEffects?.Invoke(this, EventArgs.Empty);
     }
 

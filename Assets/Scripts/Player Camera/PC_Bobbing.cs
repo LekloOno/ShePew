@@ -6,6 +6,11 @@ public class PC_Bobbing : MonoBehaviour
 {
     [SerializeField] private bool _enable = true;
 
+    public bool Enable
+    {
+        set => _enable = value;
+    }
+
     [SerializeField, Range(0, 0.1f)] private float _amplitude = 0.015f;
     [SerializeField, Range(0, 30)] private float _frequency = 10.0f;
 
@@ -50,10 +55,11 @@ public class PC_Bobbing : MonoBehaviour
 
     void Update()
     {
-        if (!_enable) return;
-
-        CheckMotion();
-        ResetPosition();
+        if (!_enable) ResetPosition();
+        else {
+            CheckMotion();
+            ResetPosition();
+        }
         //_camera.LookAt(FocusTarget());
     }
 /*

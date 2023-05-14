@@ -14,6 +14,7 @@ public class PES_Grounded : MonoBehaviour
     public Vector3 GroundNormal;
 
     public event EventHandler OnLanding;
+    public event EventHandler<LandingEventArgs> OnLandingInfos;
     public event EventHandler OnLeavingGround;
 
     [Header("Rigidbody")]
@@ -91,7 +92,10 @@ public class PES_Grounded : MonoBehaviour
             IsGrounded = nextGrounded;
 
             if(nextGrounded)
+            {
+                OnLandingInfos?.Invoke(this, new LandingEventArgs(-rb.velocity.y));
                 OnLanding?.Invoke(this, EventArgs.Empty);
+            }  
             else
                 OnLeavingGround?.Invoke(this, EventArgs.Empty);
         }

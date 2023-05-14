@@ -9,21 +9,18 @@ public class PMA_AirControl : PMA_SurfaceControl<DATA_AirControl>
     {
         if(!_groundState.IsGrounded)
         {
-            OnFixedUpdate -= OnAirBorn;
-            OnFixedUpdate += OnAirBorn;
+            ActivateData();
         }
     }   
 
     public override void SurfaceControl_OnLandingSurface(object sender, EventArgs e)
     {
-        OnFixedUpdate -= OnAirBorn;
+
     }
 
     public override void SurfaceControl_OnLeavingSurface(object sender, EventArgs e)
     {
         ActivateData();
-        rb.drag = data.Drag;
-        OnFixedUpdate += OnAirBorn;
     }
 
     void OnAirBorn(object sender, EventArgs e)

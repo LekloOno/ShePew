@@ -12,7 +12,7 @@ public class PMA_GroundControl : PMA_SurfaceControl<DATA_GroundControl>
     [SerializeField] private PI_AMapsManager inputMapsManager;
     [SerializeField] private PC_Bobbing headBobber;
 
-    bool frameFreeDrag;
+    bool frameFreeDrag = false;
     
     private DATA_GroundControl currentData;
 
@@ -34,16 +34,14 @@ public class PMA_GroundControl : PMA_SurfaceControl<DATA_GroundControl>
     }
 
     public override void ActivateData(){
-        if(dataContainer != null){
-            dataContainer.Data = currentData;
-        }
+        surfaceControlManager.CurrentData = currentData;
     }
 
     public override void SurfaceControl_OnLandingSurface(object sender, EventArgs e)
     {
         frameFreeDrag = false;
-        ActivateData();
         OnFixedUpdate += OnGrounded;
+        
     }
 
     public override void SurfaceControl_OnLeavingSurface(object sender, EventArgs e)
@@ -55,9 +53,8 @@ public class PMA_GroundControl : PMA_SurfaceControl<DATA_GroundControl>
     void OnGrounded(object sender, EventArgs e)
     {
         if(frameFreeDrag){
-            rb.drag = data.Drag;
-            appliedDir = Vector3.ProjectOnPlane(_runningInput.WishDir, _groundState.GroundNormal).normalized;
-            rb.AddForce(MovementPhysics.Acceleration(currentData.MaxSpeed, currentData.MaxAccel, rb.velocity, _runningInput.WishDir, appliedDir), ForceMode.VelocityChange);
+            ActivateData();
+            OnFixedUpdate -= OnGrounded;
         } else {
             frameFreeDrag = true;
         }
@@ -78,27 +75,24 @@ public class PMA_GroundControl : PMA_SurfaceControl<DATA_GroundControl>
     }
 
     private void StartSprinting(){
-        rb.drag = sprintData.Drag;
+        headBobber.Enable = true;
         currentData = sprintData;
-        headBobber.enabled = true;
         ActivateData();
         isSprinting = true;
     }
 
     public void StopSprinting(){
-        if(_groundState.IsGrounded)
-            rb.drag = data.Drag;
         currentData = data;
-        headBobber.enabled = false;
-        ActivateData();
+        if(_groundState.IsGrounded)
+            ActivateData();
+        headBobber.Enable = false;
         isSprinting = false;
     }
 
     private void DirectKeyStopSprinting(){
-        rb.drag = data.Drag;
         currentData = data;
-        headBobber.enabled = false;
         ActivateData();
+        headBobber.Enable = false;
         isSprinting = false;
     }
 

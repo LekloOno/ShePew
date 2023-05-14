@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BasicSprint
   m_EditorClassIdentifier: 
   MaxSpeed: 8.7
-  MaxAccel: 8
+  MaxAccel: 17
   Drag: 5

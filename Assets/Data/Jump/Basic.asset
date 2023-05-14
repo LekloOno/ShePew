@@ -17,7 +17,8 @@ MonoBehaviour:
   PreYMulltiplier: 0
   HeldJumpCD: 0.3
   HeldJumpDelay: 0
-  HeldJumpThreshold: 114.4
-  JumpDecayRecover: 0
+  HeldJumpThreshold: 0
+  JumpDecayRecover: 2
   JumpDecayStrength: 1
+  JumpDecayFloor: 0.5
   PreJumpCache: 0.03

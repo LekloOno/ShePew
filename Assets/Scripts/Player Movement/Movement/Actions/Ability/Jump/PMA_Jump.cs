@@ -4,8 +4,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 
+[DefaultExecutionOrder(50)]
 public class PMA_Jump : PMA_Ability<DATA_Jump>
 {
+    [SerializeField] private PMA_AirControl _airControl;
+    [SerializeField] private PMA_GroundControl _groundControl;
+    [SerializeField] private PM_SC_Manager _surfaceControlManager;
+
     [Header("Specifics/Behavior")]
     [SerializeField] float resetMaxTime = 0.05f;
 
@@ -16,6 +21,8 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
     [SerializeField] float tracker_jumpDecayRecover;
 
     [SerializeField] bool canJump = true;
+
+    public EventHandler<JumpEventArgs> OnJumped;
 
     private bool preJumped = false;
     private float preJumpedTime = -Mathf.Infinity;
@@ -88,12 +95,15 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
         canJump = false;
         Invoke("ForceReset", resetMaxTime);
 
+        rb.drag = _airControl.Data.Drag;
+        _surfaceControlManager.CurrentData = _airControl.Data;
 
         rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y*data.PreYMulltiplier, rb.velocity.z);
 
         float recoverMultiplier;
+        float currentState = 1-(tracker_jumpDecayRecover/data.JumpDecayRecover);
         if(data.JumpDecayRecover > 0)
-            recoverMultiplier = Mathf.Pow(1-(tracker_jumpDecayRecover/data.JumpDecayRecover), data.JumpDecayStrength);
+            recoverMultiplier = Mathf.Lerp(data.JumpDecayFloor, 1, data.JumpDecayCurve.Evaluate(currentState));
         else
             recoverMultiplier = 1;
 
@@ -106,6 +116,8 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
         tracker_jumpDecayRecover = data.JumpDecayRecover;
         if(currentRecover <= 0)
             OnFixedUpdate += RecoverDecay;
+
+        OnJumped?.Invoke(this, new JumpEventArgs((force*recoverMultiplier)/data.TapJumpForce));
     }
 
     void RecoverDecay(object sender, EventArgs e)
@@ -139,5 +151,9 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
     void ForceReset()
     {
         canJump = true;
+        if(_groundState.IsGrounded)
+        {
+            _surfaceControlManager.CurrentData = _groundControl.Data;
+        }          
     }
 }
