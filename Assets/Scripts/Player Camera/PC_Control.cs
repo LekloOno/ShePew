@@ -17,6 +17,12 @@ public class PC_Control : MonoBehaviour
     [SerializeField] PI_AMapsManager _inputHandler;
     [SerializeField] float _globalSensAdjustment;
 
+
+    public Transform FlatDir
+    {
+        get => _flatDir;
+    }
+
     float _xRotation;
     float _yRotation;
 

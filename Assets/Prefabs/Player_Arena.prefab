@@ -352,6 +352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6341677608653517120}
   - component: {fileID: 3154185906043877987}
+  - component: {fileID: 7911389494250816404}
   m_Layer: 0
   m_Name: CameraAttachments
   m_TagString: Untagged
@@ -371,7 +372,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 45927400828110973}
+  - {fileID: 6089163487649647645}
   m_Father: {fileID: 6718183364327280625}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -396,6 +397,24 @@ MonoBehaviour:
   _flatDir: {fileID: 5578641028859296546}
   _inputHandler: {fileID: 3567728572846462495}
   _globalSensAdjustment: 0.007
+--- !u!114 &7911389494250816404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2155789066547144464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c126e31b87e8ef643812a0bc4a45a967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rb: {fileID: 9104891694188603905}
+  _cam: {fileID: 3154185906043877987}
+  _slide: {fileID: 7791250405540271408}
+  _slideTiltingAngle: 8
+  _slideTiltingSpeed: 7
+  _slideTiltingResetSpeed: 15
 --- !u!1 &3308463480205885602
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +799,6 @@ GameObject:
   - component: {fileID: 917651019246755919}
   - component: {fileID: 347889556723099443}
   - component: {fileID: 353582534685547963}
-  - component: {fileID: 6064464783285434755}
   - component: {fileID: 9213251559465766345}
   m_Layer: 0
   m_Name: Camera
@@ -855,27 +873,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6301878933596370618}
   m_Enabled: 1
---- !u!114 &6064464783285434755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6301878933596370618}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7fe01c17eb46d741843601d18993857, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ZRotation: 0
-  Sens: 2.7
-  X_Sens: 0
-  Y_Sens: 0
-  _sightPosition: {fileID: 563006089797712205}
-  _cameraPosition: {fileID: 4442277382924177879}
-  _flatDir: {fileID: 5578641028859296546}
-  _inputHandler: {fileID: 3567728572846462495}
-  _globalSensAdjustment: 0.007
 --- !u!114 &9213251559465766345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1065,7 +1062,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 917651019246755919}
-  m_Father: {fileID: 6341677608653517120}
+  m_Father: {fileID: 6089163487649647645}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7744935154278468966
@@ -1080,6 +1077,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62b7cddbfee26346b2a8a40992c638e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slide: {fileID: 0}
+  _allowBobbing: 1
   _jump: {fileID: 342330326108275523}
   _jumpBobbingAnchor: {fileID: 45927400828110973}
   _jumpCurve:
@@ -1396,6 +1395,89 @@ MonoBehaviour:
   image: {fileID: 2114044171648682836}
   Angle: 0
   AngleDiff: 0
+--- !u!1 &6814305262474257085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6089163487649647645}
+  - component: {fileID: 6339497403092845422}
+  m_Layer: 0
+  m_Name: SlideInBobbing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6089163487649647645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6814305262474257085}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 45927400828110973}
+  m_Father: {fileID: 6341677608653517120}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6339497403092845422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6814305262474257085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b27cccd2af958e4da5fabc862c30d7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slide: {fileID: 7791250405540271408}
+  _slideBobbingAnchor: {fileID: 6089163487649647645}
+  _slideCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: -0.009799838
+      outSlope: -0.009799838
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.08411907
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _slideDuration: 0.245
+  _slideAmplitudeX: -0.086
+  _slideAmplitudeY: 0.103
 --- !u!1 &7241594149694168194
 GameObject:
   m_ObjectHideFlags: 0

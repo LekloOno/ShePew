@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(31)]
 public class UI_CrosshairCenter : MonoBehaviour
 {
     [SerializeField] Transform sightPosition;

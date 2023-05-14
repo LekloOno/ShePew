@@ -5,6 +5,8 @@ using System;
 
 public class PC_JumpBobbing : MonoBehaviour
 {
+    [SerializeField] private PMA_Slide _slide;
+    [SerializeField] private bool _allowBobbing = true;
     [SerializeField] private PMA_Jump _jump;
     [SerializeField] private Transform _jumpBobbingAnchor;
     [SerializeField] private AnimationCurve _jumpCurve;
@@ -34,28 +36,50 @@ public class PC_JumpBobbing : MonoBehaviour
         _startPos = _jumpBobbingAnchor.localPosition;
     }
 
+
+
     public void Start()
     {
+        if(_slide != null){
+            //_slide.OnInputIn += JumpBobbing_SlideOnInputIn;
+            //_slide.OnScaleDownComplete += JumpBobbing_SlideOnScaleDownComplete;
+        }
         _jump.OnJumped += JumpBobbing_OnJumped;
         _groundState.OnLandingInfos += JumpBobbing_OnLanded;
     }
 
+    public void JumpBobbing_SlideOnInputIn(object sender, EventArgs e)
+    {
+        _allowBobbing = false;
+    }
+
+    public void JumpBobbing_SlideOnScaleDownComplete(object sender, EventArgs e)
+    {
+        _allowBobbing = true;
+    }
+
     public void JumpBobbing_OnJumped(object sender, JumpEventArgs e)
     {
-        _forceAmplitude = e.Force;
-        _initTime = Time.time;
-        _landing = false;
-        _jumping = true;
+        if(true)
+        {
+            _forceAmplitude = e.Force;
+            _initTime = Time.time;
+            _landing = false;
+            _jumping = true;
+        }
     }
 
     public void JumpBobbing_OnLanded(object sender, LandingEventArgs e){
-        _speedAmplitude = _speedCurveImpact.Evaluate(Mathf.Min(e.Speed, _maxSpeed)/_maxSpeed);
-        _initTime = Time.time;
-        _jumping = false;
-        _landing = true;
+        if(_allowBobbing)
+        {
+            _speedAmplitude = _speedCurveImpact.Evaluate(Mathf.Min(e.Speed, _maxSpeed)/_maxSpeed);
+            _initTime = Time.time;
+            _jumping = false;
+            _landing = true;
+        } 
     }
 
-    private Vector3 JumpStepMotion(float time)
+    private Vector3 JumpMotion(float time)
     {
         Vector3 pos = Vector3.zero;
         pos.x = _jumpCurve.Evaluate(time) * _jumpAmplitudeX * _forceAmplitude;
@@ -63,7 +87,7 @@ public class PC_JumpBobbing : MonoBehaviour
         return pos;
     }
 
-    private Vector3 LandStepMotion(float time)
+    private Vector3 LandMotion(float time)
     {
         Vector3 pos = Vector3.zero;
         pos.x = -_landCurve.Evaluate(time) * _landAmplitudeX * _speedAmplitude;
@@ -76,7 +100,7 @@ public class PC_JumpBobbing : MonoBehaviour
         float currentTime = (Time.time-_initTime)/_jumpDuration;
         if(currentTime<1)
         {
-            _jumpBobbingAnchor.localPosition = JumpStepMotion(currentTime);
+            _jumpBobbingAnchor.localPosition = JumpMotion(currentTime);
         }
         else
         {
@@ -89,7 +113,7 @@ public class PC_JumpBobbing : MonoBehaviour
         float currentTime = (Time.time-_initTime)/_jumpDuration;
         if(currentTime<1)
         {
-            _jumpBobbingAnchor.localPosition = LandStepMotion(currentTime);
+            _jumpBobbingAnchor.localPosition = LandMotion(currentTime);
         }
         else
         {
@@ -116,6 +140,5 @@ public class PC_JumpBobbing : MonoBehaviour
             CheckJumpMotion();
         else
             ResetPosition();
-        //_jumpBobbingAnchor.LookAt(FocusTarget());
     }
 }

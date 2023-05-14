@@ -9,6 +9,8 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
     [Header("Specifics")]
     public bool IsActive;
 
+    public event EventHandler OnInputIn;
+    public event EventHandler OnScaleDownComplete;
     public event EventHandler OnSlideStarted;
     public event EventHandler OnSlideStoped;
 
@@ -46,10 +48,12 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
 
     public override void StartAbility(InputAction.CallbackContext obj)
     {
+        OnInputIn?.Invoke(this, EventArgs.Empty);
         currentScale = slideYScale;
         scaleSpeed = yScaleDownSpeed;
         _groundControlManager.StopSprinting();
         _groundControlManager.AllowSprint(false);
+        
         if(_groundState.FlatVelocity > slideMinSpeed)
         {
             _realForce = Mathf.Pow(Mathf.Min(data.SlideDecayRecover, Time.time-startTime)/data.SlideDecayRecover,data.SlideDecayStrength);
@@ -65,7 +69,6 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
             _groundControlManager.SetData(_crouchControl);
         }
     }
-
 
     void ApplySlideForce()
     {
@@ -114,6 +117,9 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
     void Scaling()
     {
         _player.localScale = new Vector3(_player.localScale.x, Mathf.Lerp(_player.localScale.y, currentScale, scaleSpeed), _player.localScale.z);
+        if(Mathf.Abs(_player.localScale.y - currentScale) < 0.05f){
+            OnScaleDownComplete?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public void UpdateCrouch(object sender, EventArgs e)
