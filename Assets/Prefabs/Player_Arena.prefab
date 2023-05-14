@@ -140,7 +140,8 @@ MonoBehaviour:
   sightPosition: {fileID: 563006089797712205}
   cam: {fileID: 347889556723099443}
   image: {fileID: 1492425898336682109}
-  range: 15.65
+  _maxRange: 30
+  _minRange: 0
 --- !u!1 &1088524294346803796
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,6 +505,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8022996453013570526}
+  - component: {fileID: 7791250405540271408}
   m_Layer: 0
   m_Name: Slide
   m_TagString: Untagged
@@ -526,6 +528,32 @@ Transform:
   m_Father: {fileID: 5469283979157897081}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7791250405540271408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4478832679401725136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfb513bbdb703f14684f9dee0d8d3328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: f01a0d6f37565f24989f4fb34de5a6c3, type: 2}
+  rb: {fileID: 9104891694188603905}
+  _runningInput: {fileID: 6835891092848427981}
+  _groundState: {fileID: 4807475728033228202}
+  inputMapsManager: {fileID: 3567728572846462495}
+  IsActive: 0
+  _player: {fileID: 3172006012236391654}
+  _groundControlManager: {fileID: 7223530406668091931}
+  _crouchControl: {fileID: 11400000, guid: 4c3111ad03ca70a478909ec2470402b0, type: 2}
+  _slideGroundControl: {fileID: 11400000, guid: 36181a75ef91e154387468ded26192d9, type: 2}
+  yScaleDownSpeed: 0.2
+  yScaleUpSpeed: 0.35
+  slideYScale: 0.6
+  slideMinSpeed: 7.8
 --- !u!1 &5465494180848850327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,10 +1189,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5531640019193768900}
-  - component: {fileID: 2245724078937028855}
+  - component: {fileID: 1056946536281351968}
+  - component: {fileID: 7223530406668091931}
   - component: {fileID: 342330326108275523}
   - component: {fileID: 4224766701069334050}
-  - component: {fileID: 1056946536281351968}
   m_Layer: 0
   m_Name: Basic
   m_TagString: Untagged
@@ -1187,7 +1215,7 @@ Transform:
   m_Father: {fileID: 5469283979157897081}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2245724078937028855
+--- !u!114 &1056946536281351968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1196,16 +1224,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 6761971902095302802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 925f21d2c88331e4d904536c2d15ace2, type: 3}
+  m_Script: {fileID: 11500000, guid: 07d095c1cf8751e44893b10ad8c58b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 83907a2da96387e47b75cb9e22162146, type: 2}
+  _runningInput: {fileID: 6835891092848427981}
+  _groundState: {fileID: 4807475728033228202}
+  _jump: {fileID: 342330326108275523}
+  _rb: {fileID: 9104891694188603905}
+  CurrentData: {fileID: 11400000, guid: 83907a2da96387e47b75cb9e22162146, type: 2}
+--- !u!114 &7223530406668091931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6761971902095302802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c3b7da73c65b684183f56edda7d7da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: c43c5d5acde43d04ebb06a40db03d219, type: 2}
   rb: {fileID: 9104891694188603905}
   _runningInput: {fileID: 6835891092848427981}
   _groundState: {fileID: 4807475728033228202}
   surfaceControlManager: {fileID: 1056946536281351968}
   isSprinting: 0
-  sprintData: {fileID: 11400000, guid: 77ccd502e1f8c594d81245c38625657b, type: 2}
+  enableSprint: 1
+  _sprintAvailable: 1
+  sprintData: {fileID: 11400000, guid: 15a5311d4e3f11d48a8184017af8ead9, type: 2}
+  baseData: {fileID: 11400000, guid: 83907a2da96387e47b75cb9e22162146, type: 2}
   inputMapsManager: {fileID: 3567728572846462495}
   headBobber: {fileID: 9213251559465766345}
 --- !u!114 &342330326108275523
@@ -1226,7 +1274,7 @@ MonoBehaviour:
   _groundState: {fileID: 4807475728033228202}
   inputMapsManager: {fileID: 3567728572846462495}
   _airControl: {fileID: 4224766701069334050}
-  _groundControl: {fileID: 2245724078937028855}
+  _groundControl: {fileID: 7223530406668091931}
   _surfaceControlManager: {fileID: 1056946536281351968}
   resetMaxTime: 0.05
   tracker_heldJumpCD: 0
@@ -1251,23 +1299,6 @@ MonoBehaviour:
   _runningInput: {fileID: 6835891092848427981}
   _groundState: {fileID: 4807475728033228202}
   surfaceControlManager: {fileID: 1056946536281351968}
---- !u!114 &1056946536281351968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6761971902095302802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07d095c1cf8751e44893b10ad8c58b06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _runningInput: {fileID: 6835891092848427981}
-  _groundState: {fileID: 4807475728033228202}
-  _jump: {fileID: 342330326108275523}
-  _rb: {fileID: 9104891694188603905}
-  CurrentData: {fileID: 11400000, guid: 83907a2da96387e47b75cb9e22162146, type: 2}
 --- !u!1 &6772940218068293103
 GameObject:
   m_ObjectHideFlags: 0

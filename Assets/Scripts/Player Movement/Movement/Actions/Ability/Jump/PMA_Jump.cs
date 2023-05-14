@@ -8,7 +8,7 @@ using System;
 public class PMA_Jump : PMA_Ability<DATA_Jump>
 {
     [SerializeField] private PMA_AirControl _airControl;
-    [SerializeField] private PMA_GroundControl _groundControl;
+    [SerializeField] private PMA_GroundControlManager _groundControl;
     [SerializeField] private PM_SC_Manager _surfaceControlManager;
 
     [Header("Specifics/Behavior")]

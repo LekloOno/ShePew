@@ -35,7 +35,7 @@ public class PMA_DriftControl : PMA_SurfaceControl<DATA_DriftControl>
         if(this.enabled)
         {
             this.enabled = false;
-            slideHandler.InitiateSlide();
+            //slideHandler.InitiateSlide();
             _superjumpHandler.enabled = true;
         }
     }
@@ -45,7 +45,7 @@ public class PMA_DriftControl : PMA_SurfaceControl<DATA_DriftControl>
         if(slideTime >= duration)
         {
             this.enabled = false;
-            slideHandler.InitiateSlide();
+            //slideHandler.InitiateSlide();
             _superjumpHandler.enabled = true;
         }
         else

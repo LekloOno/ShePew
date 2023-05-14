@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4561dbf62f43e2841bff6839a7d6f503, type: 3}
-  m_Name: Basic
+  m_Name: SlideAirBasic
   m_EditorClassIdentifier: 
-  MaxSpeed: 1
-  MaxAccel: 5
+  MaxSpeed: 6
+  MaxAccel: 0.5
   Drag: 0

@@ -109,7 +109,8 @@ public class PMA_Wallride : PMA_Ability<DATA_Wallride>
         }
         
         if(_wasSliding)
-            _slideHandler.InitiateSlide();
+            //_slideHandler.InitiateSlide();
+            Debug.Log("oui");
         else
             _airHandler.enabled = true;
             

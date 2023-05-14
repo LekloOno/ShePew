@@ -12,24 +12,25 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
     public event EventHandler OnSlideStarted;
     public event EventHandler OnSlideStoped;
 
-    [SerializeField] Transform player;
-    [SerializeField] Transform playerDir;
-    [SerializeField] PMA_GroundControl groundControl;
-    [SerializeField] PMA_AirControl airControl;
-    [SerializeField] PMA_GroundControl crouchControl;
-    [SerializeField] PMA_AirControl airSlideControl;
-    [SerializeField] PMA_SuperJump _superjumpHandler;
+    [SerializeField] Transform _player;
+    [SerializeField] PMA_GroundControlManager _groundControlManager;
+    //[SerializeField] PMA_AirControl airControl;
+    [SerializeField] DATA_GroundControl _crouchControl;
+    //[SerializeField] DATA_AirControl _airSlideControl;
+    [SerializeField] DATA_GroundControl _slideGroundControl;
 
     [Header("Specifics/Behavior")]
     //[SerializeField] float crouchMaxSpeed;
     [SerializeField] float yScaleDownSpeed;
     [SerializeField] float yScaleUpSpeed;
     [SerializeField] float slideYScale;
+    [SerializeField] float slideMinSpeed = 7.8f;
 
     float startTime = 0;
 
     float currentScale = 1;
     float scaleSpeed;
+    private float _realForce;
 
     protected override void Start()
     {
@@ -45,13 +46,33 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
 
     public override void StartAbility(InputAction.CallbackContext obj)
     {
-        float realForce = Mathf.Pow(Mathf.Min(data.SlideDecayRecover, Time.time-startTime)/data.SlideDecayRecover,data.SlideDecayStrength);
-        startTime = Time.time;
-        InitiateSlide();
-        rb.AddForce(_runningInput.WishDir * data.SlideXForce * realForce * (_groundState.IsGrounded ? 1 : data.AirForceMultiplier), ForceMode.Impulse);
-        OnSlideStarted?.Invoke(this, EventArgs.Empty);
+        currentScale = slideYScale;
+        scaleSpeed = yScaleDownSpeed;
+        _groundControlManager.StopSprinting();
+        _groundControlManager.AllowSprint(false);
+        if(_groundState.FlatVelocity > slideMinSpeed)
+        {
+            _realForce = Mathf.Pow(Mathf.Min(data.SlideDecayRecover, Time.time-startTime)/data.SlideDecayRecover,data.SlideDecayStrength);
+            startTime = Time.time;
+            _groundControlManager.SetData(_slideGroundControl);
+            IsActive = true;
+            OnFixedUpdate += UpdateCrouch;
+            OnSlideStarted?.Invoke(this, EventArgs.Empty);
+            Invoke("ApplySlideForce", data.SlideForceDelay);
+        }
+        else
+        {
+            _groundControlManager.SetData(_crouchControl);
+        }
     }
 
+
+    void ApplySlideForce()
+    {
+        rb.AddForce(_runningInput.WishDir * data.SlideXForce * _realForce * (_groundState.IsGrounded ? 1 : data.AirForceMultiplier), ForceMode.Impulse);
+    }
+
+/*
     public void InitiateSlide()
     {
         Activate(true);
@@ -59,53 +80,55 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
         rb.drag = data.Drag;
         OnFixedUpdate += UpdateCrouch;
     }
-
+*/
     public override void StopAbility(InputAction.CallbackContext obj)
     {
         if(data.SlideDecayRecover-Time.time+startTime < data.SlideDecayMinRecover)
         {
             startTime = Time.time-(data.SlideDecayRecover-data.SlideDecayMinRecover);
         }
-        _superjumpHandler.ResetCharge(false);
         StopSlide();
     }
 
     public void StopSlide()
     {
-        Activate(false);
-        crouchControl.enabled = false;
+        //Activate(false);
+        CancelInvoke("ApplySlideForce");
+        IsActive = false;
+        _groundControlManager.AllowSprint(true);
+        _groundControlManager.ResetData();
         currentScale = 1;
         scaleSpeed = yScaleUpSpeed;
         OnSlideStoped?.Invoke(this, EventArgs.Empty);
     }
 
+/*
     void Activate(bool state)
     {
         IsActive = state;
-        groundControl.enabled = !state;
+        _groundControlManager.enabled = !state;
         airControl.enabled = !state;
-        _superjumpHandler.enabled = state;
-        airSlideControl.enabled = state;
-    }
+        _airSlideControl.enabled = state;
+    }*/
 
     void Scaling()
     {
-        player.localScale = new Vector3(player.localScale.x, Mathf.Lerp(player.localScale.y, currentScale, scaleSpeed), player.localScale.z);
+        _player.localScale = new Vector3(_player.localScale.x, Mathf.Lerp(_player.localScale.y, currentScale, scaleSpeed), _player.localScale.z);
     }
 
     public void UpdateCrouch(object sender, EventArgs e)
     {
         if(IsActive)
         {
-            if(_groundState.FlatVelocity <= groundControl.Data.MaxSpeed*0.75f && _groundState.IsGrounded)
+            if(_groundState.FlatVelocity <= _crouchControl.MaxSpeed*0.8f && _groundState.IsGrounded)
             {
-                crouchControl.enabled = true;
+                _groundControlManager.SetData(_crouchControl);
                 OnFixedUpdate -= UpdateCrouch;
             }
         }
         else
         {
-            crouchControl.enabled = false;
+            _groundControlManager.ResetData();
             OnFixedUpdate -= UpdateCrouch;
         }
     }
