@@ -31,6 +31,7 @@ public class PMA_GroundControl : PMA_SurfaceControl<DATA_GroundControl>
         }
 
         inputMapsManager.playerInputActions.Arena.Sprint.performed += OnSprintDown;
+        _runningInput.OnStopOrLess += Sprint_OnStopOrLess;
     }
 
     public override void ActivateData(){
@@ -60,7 +61,8 @@ public class PMA_GroundControl : PMA_SurfaceControl<DATA_GroundControl>
         }
     }
 
-    public void OnSprintDown(InputAction.CallbackContext obj){
+    public void OnSprintDown(InputAction.CallbackContext obj)
+    {
         if(_groundState.IsGrounded)
         {
             if(isSprinting)
@@ -72,6 +74,11 @@ public class PMA_GroundControl : PMA_SurfaceControl<DATA_GroundControl>
                 StartSprinting();
             }
         }   
+    }
+
+    public void Sprint_OnStopOrLess(object sender, EventArgs e)
+    {
+        StopSprinting();
     }
 
     private void StartSprinting(){

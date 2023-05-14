@@ -49,7 +49,6 @@ public class PC_JumpBobbing : MonoBehaviour
     }
 
     public void JumpBobbing_OnLanded(object sender, LandingEventArgs e){
-        Debug.Log(e.Speed);
         _speedAmplitude = _speedCurveImpact.Evaluate(Mathf.Min(e.Speed, _maxSpeed)/_maxSpeed);
         _initTime = Time.time;
         _jumping = false;
