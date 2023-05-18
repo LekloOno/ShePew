@@ -97,7 +97,7 @@ public class PC_JumpBobbing : MonoBehaviour
 
     private void CheckJumpMotion()
     {
-        float currentTime = (Time.time-_initTime)/_jumpDuration;
+        float currentTime = (Time.time-_initTime)/(_jumpDuration*_forceAmplitude);
         if(currentTime<1)
         {
             _jumpBobbingAnchor.localPosition = JumpMotion(currentTime);
@@ -110,7 +110,7 @@ public class PC_JumpBobbing : MonoBehaviour
 
     private void CheckLandMotion()
     {
-        float currentTime = (Time.time-_initTime)/_landDuration;
+        float currentTime = (Time.time-_initTime)/(_landDuration*_speedAmplitude);
         if(currentTime<1)
         {
             _jumpBobbingAnchor.localPosition = LandMotion(currentTime);
