@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using System;
 
 /*
@@ -12,7 +13,7 @@ It also stores other general informations about these "WASD" inputs.
 public class PIA_RunningProcessing : MonoBehaviour
 {
     public EventHandler OnStopOrLess;
-    public EventHandler<Vector2> KeyPressed;
+    public EventHandler<Vector3> KeyPressed;
     public Vector3 SpaceWishDir;
     public Vector3 WishDir;
     public Vector2 RunningAxis;
@@ -24,14 +25,23 @@ public class PIA_RunningProcessing : MonoBehaviour
     [SerializeField] Transform flatDir;
     [SerializeField] Transform sightPosition;
 
+    void Start()
+    {
+        inputsMM.playerInputActions.Arena.Forward.performed += OnKeyPressed;
+        inputsMM.playerInputActions.Arena.Backward.performed += OnKeyPressed;
+        inputsMM.playerInputActions.Arena.Right.performed += OnKeyPressed;
+        inputsMM.playerInputActions.Arena.Left.performed += OnKeyPressed;
+    }
+
+    public void OnKeyPressed(InputAction.CallbackContext obj)
+    {
+        nextRunningAxis = inputsMM.playerInputActions.Arena.Running.ReadValue<Vector2>();
+        KeyPressed?.Invoke(this, flatDir.forward * nextRunningAxis.y + flatDir.right * nextRunningAxis.x);
+    }
 
     void FixedUpdate()
     {
         nextRunningAxis = inputsMM.playerInputActions.Arena.Running.ReadValue<Vector2>();
-        if(nextRunningAxis != Vector2.zero && nextRunningAxis != RunningAxis)
-        {
-            KeyPressed?.Invoke(this, nextRunningAxis);
-        }
         RunningAxis = nextRunningAxis;
         if(RunningAxis.y < 0)
         {

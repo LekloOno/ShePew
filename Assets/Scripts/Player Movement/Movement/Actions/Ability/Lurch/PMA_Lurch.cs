@@ -30,14 +30,16 @@ public class PMA_Lurch : MonoBehaviour
         _maxFullLurch = Mathf.Abs(Mathf.Cos(Mathf.Deg2Rad * _maxFullLurchAngle));
         Debug.Log(_maxDot);
         _maxSteps = _maxTime/Time.fixedDeltaTime;
-        inputsMM.playerInputActions.Arena.Running.performed += Lurch_OnKeyPressed2;
+        //inputsMM.playerInputActions.Arena.Running.performed += Lurch_OnKeyPressed2;
+        _runningInput.KeyPressed += Lurch_OnKeyPressed;
     }
 
     public void Lurch_OnKeyPressed2(InputAction.CallbackContext obj)
     {
+        Debug.Log("Pressed" + obj.phase);
         Vector3 localWishDir = _runningInput.FreeWishDir(obj.ReadValue<Vector2>());
         float absDot = Mathf.Abs(Vector3.Dot(_groundState.FlatVelocity.normalized, localWishDir));
-        if(!_groundState.IsGrounded && _groundState.StepSinceLastJumped < _maxSteps && absDot<_maxDot)
+        if(!_groundState.IsGrounded && _groundState.StepSinceLastJumped < _maxSteps && absDot<=_maxDot)
         {
             if(absDot < _maxFullLurch)
             {
@@ -52,4 +54,25 @@ public class PMA_Lurch : MonoBehaviour
             }
         }
     }
+
+    public void Lurch_OnKeyPressed(object sender, Vector3 wishDir)
+    {
+        //wishDir = _runningInput.FreeWishDir(obj.ReadValue<Vector2>());
+        float absDot = Mathf.Abs(Vector3.Dot(_groundState.FlatVelocity.normalized, wishDir));
+        if(!_groundState.IsGrounded && _groundState.StepSinceLastJumped < _maxSteps && absDot<=_maxDot)
+        {
+            if(absDot < _maxFullLurch)
+            {
+                Debug.Log("FULL LURCH");
+                Vector3 lerpedDir = Vector3.Lerp(_groundState.FlatVelocity.normalized, wishDir, 0.5f).normalized;
+                _rb.velocity = lerpedDir*_groundState.FlatSpeed + new Vector3(0, _rb.velocity.y, 0);
+            }
+            else
+            {
+                Debug.Log("DEBUFF");
+                _rb.velocity = wishDir.normalized * _groundState.FlatSpeed * _wideLurchPenalty + new Vector3(0, _rb.velocity.y, 0);
+            }
+        }
+    }
+
 }

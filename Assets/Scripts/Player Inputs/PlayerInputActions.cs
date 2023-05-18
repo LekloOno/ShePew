@@ -89,6 +89,42 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Forward"",
+                    ""type"": ""Button"",
+                    ""id"": ""68f067d4-be89-47f4-9473-62003ad01904"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Backward"",
+                    ""type"": ""Button"",
+                    ""id"": ""1e27bc64-9986-4a5e-a404-be6d761eaa9e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a403879-77f4-4f9b-8273-129a559ed453"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""f459fb4f-2e94-4e1d-8f4c-c59eb1528dc1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -265,6 +301,50 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Slide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7b8751c-d02f-428c-9023-7bb91585679c"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Forward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a88d0c74-002d-440e-b570-6f0b80a837b7"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Backward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""680c321e-f851-42c1-a87e-b54352c11d2b"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27b652e1-bce3-49d9-a2ec-9f1672c5babf"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -859,6 +939,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Arena_Jump = m_Arena.FindAction("Jump", throwIfNotFound: true);
         m_Arena_Sprint = m_Arena.FindAction("Sprint", throwIfNotFound: true);
         m_Arena_Slide = m_Arena.FindAction("Slide", throwIfNotFound: true);
+        m_Arena_Forward = m_Arena.FindAction("Forward", throwIfNotFound: true);
+        m_Arena_Backward = m_Arena.FindAction("Backward", throwIfNotFound: true);
+        m_Arena_Right = m_Arena.FindAction("Right", throwIfNotFound: true);
+        m_Arena_Left = m_Arena.FindAction("Left", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -937,6 +1021,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Arena_Jump;
     private readonly InputAction m_Arena_Sprint;
     private readonly InputAction m_Arena_Slide;
+    private readonly InputAction m_Arena_Forward;
+    private readonly InputAction m_Arena_Backward;
+    private readonly InputAction m_Arena_Right;
+    private readonly InputAction m_Arena_Left;
     public struct ArenaActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -948,6 +1036,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Arena_Jump;
         public InputAction @Sprint => m_Wrapper.m_Arena_Sprint;
         public InputAction @Slide => m_Wrapper.m_Arena_Slide;
+        public InputAction @Forward => m_Wrapper.m_Arena_Forward;
+        public InputAction @Backward => m_Wrapper.m_Arena_Backward;
+        public InputAction @Right => m_Wrapper.m_Arena_Right;
+        public InputAction @Left => m_Wrapper.m_Arena_Left;
         public InputActionMap Get() { return m_Wrapper.m_Arena; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -978,6 +1070,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Slide.started -= m_Wrapper.m_ArenaActionsCallbackInterface.OnSlide;
                 @Slide.performed -= m_Wrapper.m_ArenaActionsCallbackInterface.OnSlide;
                 @Slide.canceled -= m_Wrapper.m_ArenaActionsCallbackInterface.OnSlide;
+                @Forward.started -= m_Wrapper.m_ArenaActionsCallbackInterface.OnForward;
+                @Forward.performed -= m_Wrapper.m_ArenaActionsCallbackInterface.OnForward;
+                @Forward.canceled -= m_Wrapper.m_ArenaActionsCallbackInterface.OnForward;
+                @Backward.started -= m_Wrapper.m_ArenaActionsCallbackInterface.OnBackward;
+                @Backward.performed -= m_Wrapper.m_ArenaActionsCallbackInterface.OnBackward;
+                @Backward.canceled -= m_Wrapper.m_ArenaActionsCallbackInterface.OnBackward;
+                @Right.started -= m_Wrapper.m_ArenaActionsCallbackInterface.OnRight;
+                @Right.performed -= m_Wrapper.m_ArenaActionsCallbackInterface.OnRight;
+                @Right.canceled -= m_Wrapper.m_ArenaActionsCallbackInterface.OnRight;
+                @Left.started -= m_Wrapper.m_ArenaActionsCallbackInterface.OnLeft;
+                @Left.performed -= m_Wrapper.m_ArenaActionsCallbackInterface.OnLeft;
+                @Left.canceled -= m_Wrapper.m_ArenaActionsCallbackInterface.OnLeft;
             }
             m_Wrapper.m_ArenaActionsCallbackInterface = instance;
             if (instance != null)
@@ -1003,6 +1107,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Slide.started += instance.OnSlide;
                 @Slide.performed += instance.OnSlide;
                 @Slide.canceled += instance.OnSlide;
+                @Forward.started += instance.OnForward;
+                @Forward.performed += instance.OnForward;
+                @Forward.canceled += instance.OnForward;
+                @Backward.started += instance.OnBackward;
+                @Backward.performed += instance.OnBackward;
+                @Backward.canceled += instance.OnBackward;
+                @Right.started += instance.OnRight;
+                @Right.performed += instance.OnRight;
+                @Right.canceled += instance.OnRight;
+                @Left.started += instance.OnLeft;
+                @Left.performed += instance.OnLeft;
+                @Left.canceled += instance.OnLeft;
             }
         }
     }
@@ -1166,6 +1282,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnSlide(InputAction.CallbackContext context);
+        void OnForward(InputAction.CallbackContext context);
+        void OnBackward(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
+        void OnLeft(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
