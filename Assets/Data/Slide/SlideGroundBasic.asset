@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0154508023312fc4ca6c65ed1f019427, type: 3}
   m_Name: SlideGroundBasic
   m_EditorClassIdentifier: 
-  MaxSpeed: 6
-  MaxAccel: 0.3
-  Drag: 2
+  MaxSpeed: 3
+  MaxAccel: 0.2
+  Drag: 0.38

@@ -29,8 +29,8 @@ public class UI_SpeedMeter : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float frictionBoost = SF_GameplayValues.FrictionChargeAmount(_groundState.FlatVelocity);
-        float km = (_groundState.FlatVelocity*3.6f);
+        float frictionBoost = SF_GameplayValues.FrictionChargeAmount(_groundState.FlatSpeed);
+        float km = (_groundState.FlatSpeed*3.6f);
         //float dotten = Mathf.Round(km*10);
         //float dec = (dotten % 10);
         //float part = Mathf.FloorToInt(dotten/10);

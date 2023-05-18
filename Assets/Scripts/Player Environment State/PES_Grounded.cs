@@ -18,8 +18,9 @@ public class PES_Grounded : MonoBehaviour
     public event EventHandler OnLeavingGround;
 
     [Header("Rigidbody")]
-    public float FlatVelocity;
+    public float FlatSpeed;
     public Vector3 Velocity;
+    public Vector3 FlatVelocity;
     
     [Header("Tweak")]
     [SerializeField] Rigidbody rb;
@@ -30,6 +31,8 @@ public class PES_Grounded : MonoBehaviour
     [SerializeField] float groundedRadius;
     [SerializeField] float groundedMaxAngle;
     [SerializeField] float maxVerticalSpeed;
+
+    public LayerMask Ground { get=> ground;}
 
     RaycastHit groundHit;
     RaycastHit groundedHit;
@@ -54,7 +57,8 @@ public class PES_Grounded : MonoBehaviour
     {
         realDistToGround = transform.localScale.y*distToGround;
         Velocity = rb.velocity;
-        FlatVelocity = (new Vector3(Velocity.x,0,Velocity.z)).magnitude;
+        FlatVelocity = (new Vector3(Velocity.x,0,Velocity.z));
+        FlatSpeed = FlatVelocity.magnitude;
 
         if(Physics.Raycast(spatial.position, Vector3.down, out groundHit, Mathf.Infinity, ground))
         {
@@ -84,7 +88,7 @@ public class PES_Grounded : MonoBehaviour
         Gizmos.DrawWireSphere(spatial.position+Vector3.down*Mathf.Min(GroundHeight-groundedRadius,realDistToGround-groundedRadius), groundedRadius);
     }
 
-    void UpdateGrounded(bool nextGrounded)
+    public void UpdateGrounded(bool nextGrounded)
     {
         nextGrounded = nextGrounded && rb.velocity.y < maxVerticalSpeed;
         if(IsGrounded != nextGrounded)

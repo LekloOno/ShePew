@@ -36,7 +36,7 @@ public class PC_Bobbing : MonoBehaviour
 
     private void CheckMotion()
     {
-        if (_groundState.FlatVelocity < _toggleSpeed) return;
+        if (_groundState.FlatSpeed < _toggleSpeed) return;
         if (!_groundState.IsGrounded) return;
 
         PlayMotion(FootStepMotion());

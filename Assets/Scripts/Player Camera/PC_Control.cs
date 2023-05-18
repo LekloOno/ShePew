@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[DefaultExecutionOrder(30)]
 public class PC_Control : MonoBehaviour
 {
     public float ZRotation = 0;

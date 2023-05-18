@@ -28,7 +28,7 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
     [SerializeField] float slideYScale;
     [SerializeField] float slideMinSpeed = 7.8f;
 
-    float startTime = 0;
+    float startTime = Mathf.NegativeInfinity;
 
     float currentScale = 1;
     float scaleSpeed;
@@ -54,7 +54,7 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
         _groundControlManager.StopSprinting();
         _groundControlManager.AllowSprint(false);
         
-        if(_groundState.FlatVelocity > slideMinSpeed)
+        if(_groundState.FlatSpeed > slideMinSpeed)
         {
             _realForce = Mathf.Pow(Mathf.Min(data.SlideDecayRecover, Time.time-startTime)/data.SlideDecayRecover,data.SlideDecayStrength);
             startTime = Time.time;
@@ -72,7 +72,7 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
 
     void ApplySlideForce()
     {
-        rb.AddForce(_runningInput.WishDir * data.SlideXForce * _realForce * (_groundState.IsGrounded ? 1 : data.AirForceMultiplier), ForceMode.Impulse);
+        rb.AddForce(_groundState.FlatVelocity.normalized * data.SlideXForce * _realForce * (_groundState.IsGrounded ? 1 : data.AirForceMultiplier), ForceMode.Impulse);
     }
 
 /*
@@ -126,7 +126,7 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
     {
         if(IsActive)
         {
-            if(_groundState.FlatVelocity <= _crouchControl.MaxSpeed*0.8f && _groundState.IsGrounded)
+            if(_groundState.FlatSpeed <= _crouchControl.MaxSpeed*0.8f && _groundState.IsGrounded)
             {
                 _groundControlManager.SetData(_crouchControl);
                 OnFixedUpdate -= UpdateCrouch;

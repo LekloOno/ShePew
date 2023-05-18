@@ -965,6 +965,7 @@ GameObject:
   - component: {fileID: 3172006012236391654}
   - component: {fileID: 9104891694188603905}
   - component: {fileID: 4807475728033228202}
+  - component: {fileID: 6447104253811754711}
   m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
@@ -1032,6 +1033,30 @@ MonoBehaviour:
   groundedRadius: 0.28
   groundedMaxAngle: 45
   maxVerticalSpeed: 3.5
+--- !u!114 &6447104253811754711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6508947818338868535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99579214bc1029f4091a1bc9a578da86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spatial: {fileID: 1455518778984284135}
+  _groundControlManager: {fileID: 7223530406668091931}
+  _surfaceControlManager: {fileID: 1056946536281351968}
+  _groundState: {fileID: 4807475728033228202}
+  isClimbing: 0
+  climbSpeed: 0.02
+  maxDistance: 0.5
+  upperDistanceOffset: 0
+  floorMargin: 0.05
+  maxHeight: 0.3
+  rb: {fileID: 9104891694188603905}
+  inputHandler: {fileID: 6835891092848427981}
 --- !u!1 &6632394067544442758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,7 +1276,7 @@ MonoBehaviour:
   isSprinting: 0
   enableSprint: 1
   _sprintAvailable: 1
-  sprintData: {fileID: 11400000, guid: 15a5311d4e3f11d48a8184017af8ead9, type: 2}
+  sprintData: {fileID: 11400000, guid: 77ccd502e1f8c594d81245c38625657b, type: 2}
   baseData: {fileID: 11400000, guid: 83907a2da96387e47b75cb9e22162146, type: 2}
   inputMapsManager: {fileID: 3567728572846462495}
   headBobber: {fileID: 9213251559465766345}
@@ -1475,9 +1500,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _slideDuration: 0.245
-  _slideAmplitudeX: -0.086
-  _slideAmplitudeY: 0.103
+  _slideDuration: 0.45
+  _slideAmplitudeX: 0.05
+  _slideAmplitudeY: 0.125
 --- !u!1 &7241594149694168194
 GameObject:
   m_ObjectHideFlags: 0

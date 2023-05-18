@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0154508023312fc4ca6c65ed1f019427, type: 3}
   m_Name: BasicSprint
   m_EditorClassIdentifier: 
-  MaxSpeed: 8.7
+  MaxSpeed: 9.5
   MaxAccel: 17
-  Drag: 5
+  Drag: 8

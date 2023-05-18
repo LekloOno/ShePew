@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0154508023312fc4ca6c65ed1f019427, type: 3}
   m_Name: CrouchBasic
   m_EditorClassIdentifier: 
-  MaxSpeed: 2.6
+  MaxSpeed: 4
   MaxAccel: 20
-  Drag: 0
+  Drag: 8

@@ -17,7 +17,7 @@ public class DEBUG_AccelVisualizer : MonoBehaviour
 
     void FixedUpdate(){
         Vector3 projected = Vector3.ProjectOnPlane(rb.velocity, Vector3.up);
-        Angle = MovementPhysics.MaxAccelAngle(_groundState.FlatVelocity, surfaceControlManager.CurrentData.MaxSpeed, surfaceControlManager.CurrentData.MaxAccel);
+        Angle = MovementPhysics.MaxAccelAngle(_groundState.FlatSpeed, surfaceControlManager.CurrentData.MaxSpeed, surfaceControlManager.CurrentData.MaxAccel);
         Vector3 right = Quaternion.AngleAxis(Angle, Vector3.up) * projected;
         Vector3 left = Quaternion.AngleAxis(-Angle, Vector3.up) * projected;
 

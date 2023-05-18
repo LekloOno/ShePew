@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c935016fde3d5c419448902df893005, type: 3}
   m_Name: Basic
   m_EditorClassIdentifier: 
-  SlideXForce: 5
-  AirForceMultiplier: 0.35
+  SlideXForce: 6
+  AirForceMultiplier: 0.3
   SlideDecayRecover: 3
   SlideDecayMinRecover: 1
   SlideDecayStrength: 0.8
-  Drag: 0
+  SlideForceDelay: 0.12
