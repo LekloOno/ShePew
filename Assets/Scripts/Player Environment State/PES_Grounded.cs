@@ -44,6 +44,8 @@ public class PES_Grounded : MonoBehaviour
     private float _stepSinceLastJumped = 5;
     private float _minJumpStep = 5;
 
+    public float StepSinceLastJumped { get=>_stepSinceLastJumped;}
+
     [SerializeField] bool _showLog;
 
     void Awake()

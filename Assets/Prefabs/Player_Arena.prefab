@@ -32,6 +32,7 @@ Transform:
   - {fileID: 5531640019193768900}
   - {fileID: 8022996453013570526}
   - {fileID: 1314082840680962847}
+  - {fileID: 6819548096784224337}
   m_Father: {fileID: 6718183364327280625}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -573,6 +574,56 @@ MonoBehaviour:
   yScaleUpSpeed: 0.35
   slideYScale: 0.6
   slideMinSpeed: 7.8
+--- !u!1 &5298154480891652797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6819548096784224337}
+  - component: {fileID: 8926691363446406127}
+  m_Layer: 0
+  m_Name: Lurch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6819548096784224337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5298154480891652797}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5469283979157897081}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8926691363446406127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5298154480891652797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35dc70624adede40aff851712c61601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _runningInput: {fileID: 6835891092848427981}
+  inputsMM: {fileID: 3567728572846462495}
+  _groundState: {fileID: 4807475728033228202}
+  _rb: {fileID: 9104891694188603905}
+  _maxTime: 0.5
+  _maxAngle: 0
 --- !u!1 &5465494180848850327
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,6 +684,7 @@ MonoBehaviour:
   SpaceWishDir: {x: 0, y: 0, z: 0}
   WishDir: {x: 0, y: 0, z: 0}
   RunningAxis: {x: 0, y: 0}
+  nextRunningAxis: {x: 0, y: 0}
   LastBackward: -Infinity
   inputsMM: {fileID: 3567728572846462495}
   flatDir: {fileID: 5578641028859296546}
@@ -1118,7 +1170,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   _jumpDuration: 0.2
   _jumpAmplitudeX: 0.05
-  _jumpAmplitudeY: 0.1
+  _jumpAmplitudeY: 0.08
   _groundState: {fileID: 4807475728033228202}
   _landCurve:
     serializedVersion: 2
@@ -1177,7 +1229,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _landDuration: 0.02
+  _landDuration: 0.16
   _landAmplitudeX: 0.02
   _landAmplitudeY: 0.12
   _maxSpeed: 15

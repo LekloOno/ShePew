@@ -12,9 +12,11 @@ It also stores other general informations about these "WASD" inputs.
 public class PIA_RunningProcessing : MonoBehaviour
 {
     public EventHandler OnStopOrLess;
+    public EventHandler<Vector2> KeyPressed;
     public Vector3 SpaceWishDir;
     public Vector3 WishDir;
     public Vector2 RunningAxis;
+    public Vector2 nextRunningAxis;
     public float LastBackward = Mathf.NegativeInfinity;
 
     [SerializeField] private PI_AMapsManager inputsMM;
@@ -25,7 +27,12 @@ public class PIA_RunningProcessing : MonoBehaviour
 
     void FixedUpdate()
     {
-        RunningAxis = inputsMM.playerInputActions.Arena.Running.ReadValue<Vector2>();
+        nextRunningAxis = inputsMM.playerInputActions.Arena.Running.ReadValue<Vector2>();
+        if(nextRunningAxis != Vector2.zero && nextRunningAxis != RunningAxis)
+        {
+            KeyPressed?.Invoke(this, nextRunningAxis);
+        }
+        RunningAxis = nextRunningAxis;
         if(RunningAxis.y < 0)
         {
             LastBackward = Time.time;
@@ -36,5 +43,10 @@ public class PIA_RunningProcessing : MonoBehaviour
         }
         WishDir = flatDir.forward * RunningAxis.y + flatDir.right * RunningAxis.x;
         SpaceWishDir = sightPosition.forward * RunningAxis.y + sightPosition.right * RunningAxis.x;
+    }
+
+    public Vector3 FreeWishDir(Vector2 input)
+    {
+        return flatDir.forward * input.y + flatDir.right * input.x;
     }
 }

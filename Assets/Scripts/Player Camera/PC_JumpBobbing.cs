@@ -110,7 +110,7 @@ public class PC_JumpBobbing : MonoBehaviour
 
     private void CheckLandMotion()
     {
-        float currentTime = (Time.time-_initTime)/_jumpDuration;
+        float currentTime = (Time.time-_initTime)/_landDuration;
         if(currentTime<1)
         {
             _jumpBobbingAnchor.localPosition = LandMotion(currentTime);

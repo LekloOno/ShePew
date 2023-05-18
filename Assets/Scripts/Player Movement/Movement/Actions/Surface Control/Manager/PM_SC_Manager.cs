@@ -26,7 +26,8 @@ public class PM_SC_Manager : MonoBehaviour
             _rb.drag = CurrentData.Drag;
             appliedDir = Vector3.ProjectOnPlane(_runningInput.WishDir, _groundState.GroundNormal).normalized;
             _rb.AddForce(MovementPhysics.Acceleration(CurrentData.MaxSpeed, CurrentData.MaxAccel, _rb.velocity, _runningInput.WishDir, appliedDir), ForceMode.VelocityChange);
-            if(_groundState.IsGrounded && _groundState.FlatSpeed < _groundStopSpeed) _rb.velocity = Vector3.zero;
+            if(_groundState.IsGrounded && _groundState.FlatSpeed < _groundStopSpeed) _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
+
         //}
     }
 }
