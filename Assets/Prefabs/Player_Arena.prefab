@@ -1232,6 +1232,7 @@ MonoBehaviour:
   _groundState: {fileID: 4807475728033228202}
   _jump: {fileID: 342330326108275523}
   _rb: {fileID: 9104891694188603905}
+  _groundStopSpeed: 1.5
   CurrentData: {fileID: 11400000, guid: 83907a2da96387e47b75cb9e22162146, type: 2}
 --- !u!114 &7223530406668091931
 MonoBehaviour:
