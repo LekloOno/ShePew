@@ -9,6 +9,7 @@ public class DEBUG_AccelVisualizer : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private PM_SC_Manager surfaceControlManager;
     [SerializeField] private Camera _camera;
+    [SerializeField] private Transform _pivot;
     [SerializeField] private PIA_RunningProcessing inputHandler;
     [SerializeField] private PES_Grounded _groundState;
     [SerializeField] private Image image;
@@ -25,6 +26,6 @@ public class DEBUG_AccelVisualizer : MonoBehaviour
         AngleDiff = (Angle - Vector3.Angle(projected, inputHandler.WishDir)) * (closest == left ? -1 : 1);
         Vector3 camClosest = Quaternion.AngleAxis(AngleDiff, Vector3.up) * new Vector3(_camera.transform.forward.x, 0, _camera.transform.forward.z);
 
-        image.transform.position = _camera.WorldToScreenPoint(_camera.transform.position - camClosest);
+        image.transform.position = _camera.WorldToScreenPoint(_pivot.transform.position + camClosest);
     }
 }
