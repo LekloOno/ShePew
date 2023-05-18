@@ -215,6 +215,17 @@
                 },
                 {
                     "name": "",
+                    "id": "aa7b649d-b5f9-467a-a23d-0626735d996b",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "449a6adf-8d7a-4d64-bf82-88230ff9355d",
                     "path": "<Keyboard>/shift",
                     "interactions": "",

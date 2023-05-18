@@ -19,7 +19,7 @@ MonoBehaviour:
   HeldJumpDelay: 0
   HeldJumpThreshold: 0
   JumpDecayRecover: 1.5
-  JumpDecayFloor: 0.5
+  JumpDecayFloor: 0.55
   JumpDecayCurve:
     serializedVersion: 2
     m_Curve:

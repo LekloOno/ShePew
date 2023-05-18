@@ -15,6 +15,7 @@ public class DEBUG_AccelVisualizer : MonoBehaviour
     [SerializeField] private Image image;
     public float Angle;
     public float AngleDiff;
+    private float _maxRange = 10;
 
     void FixedUpdate(){
         Vector3 projected = Vector3.ProjectOnPlane(rb.velocity, Vector3.up);
@@ -26,6 +27,14 @@ public class DEBUG_AccelVisualizer : MonoBehaviour
         AngleDiff = (Angle - Vector3.Angle(projected, inputHandler.WishDir)) * (closest == left ? -1 : 1);
         Vector3 camClosest = Quaternion.AngleAxis(AngleDiff, Vector3.up) * new Vector3(_camera.transform.forward.x, 0, _camera.transform.forward.z);
 
-        image.transform.position = _camera.WorldToScreenPoint(_pivot.transform.position + camClosest);
+        RaycastHit hit;
+        if (Physics.Raycast(_pivot.position, camClosest, out hit, _maxRange))
+        {
+            image.transform.position = _camera.WorldToScreenPoint(hit.point);
+        } else {
+            image.transform.position = _camera.WorldToScreenPoint(_pivot.transform.position + camClosest);
+        }
+
+        //image.transform.position = _camera.WorldToScreenPoint(_pivot.transform.position + camClosest);
     }
 }
