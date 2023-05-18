@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db05f2fac14160044b1f7e3435a6d54b, type: 3}
   m_Name: Basic
   m_EditorClassIdentifier: 
-  HeldJumpForce: 3.8
-  TapJumpForce: 4
+  HeldJumpForce: 4
+  TapJumpForce: 4.3
   PreYMulltiplier: 0
   HeldJumpCD: 0.3
   HeldJumpDelay: 0
