@@ -624,6 +624,8 @@ MonoBehaviour:
   _rb: {fileID: 9104891694188603905}
   _maxTime: 0.5
   _maxAngle: 0
+  _maxFullLurchAngle: 0
+  _wideLurchPenalty: 0
 --- !u!1 &5465494180848850327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,8 +1170,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _jumpDuration: 0.2
-  _jumpAmplitudeX: 0.05
+  _jumpDuration: 0.4
+  _jumpAmplitudeX: 0.02
   _jumpAmplitudeY: 0.08
   _groundState: {fileID: 4807475728033228202}
   _landCurve:
@@ -1229,9 +1231,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _landDuration: 0.16
-  _landAmplitudeX: 0.02
-  _landAmplitudeY: 0.12
+  _landDuration: 0.5
+  _landAmplitudeX: 0.04
+  _landAmplitudeY: 0.24
   _maxSpeed: 15
 --- !u!1 &6761971902095302802
 GameObject:
