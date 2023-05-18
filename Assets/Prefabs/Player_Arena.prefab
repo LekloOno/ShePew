@@ -965,7 +965,6 @@ GameObject:
   - component: {fileID: 3172006012236391654}
   - component: {fileID: 9104891694188603905}
   - component: {fileID: 4807475728033228202}
-  - component: {fileID: 6447104253811754711}
   m_Layer: 0
   m_Name: Pivot
   m_TagString: Untagged
@@ -1021,8 +1020,9 @@ MonoBehaviour:
   GroundHeight: 0
   GroundAngle: 0
   GroundNormal: {x: 0, y: 0, z: 0}
-  FlatVelocity: 0
+  FlatSpeed: 0
   Velocity: {x: 0, y: 0, z: 0}
+  FlatVelocity: {x: 0, y: 0, z: 0}
   rb: {fileID: 9104891694188603905}
   spatial: {fileID: 1455518778984284135}
   body: {fileID: 1387117402479657595}
@@ -1032,31 +1032,8 @@ MonoBehaviour:
   distToGround: 1
   groundedRadius: 0.28
   groundedMaxAngle: 45
-  maxVerticalSpeed: 3.5
---- !u!114 &6447104253811754711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6508947818338868535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99579214bc1029f4091a1bc9a578da86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spatial: {fileID: 1455518778984284135}
-  _groundControlManager: {fileID: 7223530406668091931}
-  _surfaceControlManager: {fileID: 1056946536281351968}
-  _groundState: {fileID: 4807475728033228202}
-  isClimbing: 0
-  climbSpeed: 0.02
-  maxDistance: 0.5
-  upperDistanceOffset: 0
-  floorMargin: 0.05
-  maxHeight: 0.3
-  rb: {fileID: 9104891694188603905}
-  inputHandler: {fileID: 6835891092848427981}
+  maxVerticalSpeed: 4.6
+  _showLog: 0
 --- !u!1 &6632394067544442758
 GameObject:
   m_ObjectHideFlags: 0

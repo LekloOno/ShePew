@@ -31,11 +31,12 @@ public class UI_SpeedMeter : MonoBehaviour
     {
         float frictionBoost = SF_GameplayValues.FrictionChargeAmount(_groundState.FlatSpeed);
         float km = (_groundState.FlatSpeed*3.6f);
+        float verticalSpeed = Mathf.FloorToInt(_groundState.Velocity.y * 10)/10f;
         //float dotten = Mathf.Round(km*10);
         //float dec = (dotten % 10);
         //float part = Mathf.FloorToInt(dotten/10);
         //text.text = part.ToString()+"."+dec.ToString();
-        text.text = Mathf.FloorToInt(km) + " km.h\n" + Mathf.FloorToInt(_groundState.GroundHeight)+"."+Mathf.FloorToInt(_groundState.GroundHeight*10)%10 + " meter";
+        text.text = Mathf.FloorToInt(km) + " km.h\n" + Mathf.FloorToInt(_groundState.GroundHeight)+"."+Mathf.FloorToInt(_groundState.GroundHeight*10)%10 + " meter\n" + verticalSpeed;
         Color boostColor = Color.Lerp(minColor,maxColor,frictionBoost/maxBoostCol);
         text.color = boostColor;
         text.fontSize = Mathf.Lerp(text.fontSize, 15-Mathf.Min(frictionBoost/maxBoostFontSize, maxBoostFontSize)*5, lerpSpeed);

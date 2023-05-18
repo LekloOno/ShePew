@@ -117,6 +117,7 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
         if(currentRecover <= 0)
             OnFixedUpdate += RecoverDecay;
 
+        _groundState.ResetJumpTracker();
         OnJumped?.Invoke(this, new JumpEventArgs((force*recoverMultiplier)/data.TapJumpForce));
     }
 

@@ -40,6 +40,12 @@ public class PES_Grounded : MonoBehaviour
     float groundInfoRadius;
     float realDistToGround;
 
+    private float _stepSinceLastGrounded = 0;
+    private float _stepSinceLastJumped = 5;
+    private float _minJumpStep = 5;
+
+    [SerializeField] bool _showLog;
+
     void Awake()
     {
         float R2 = body.localScale.x*0.5f;
@@ -55,6 +61,8 @@ public class PES_Grounded : MonoBehaviour
 
     void FixedUpdate()
     {
+        _stepSinceLastGrounded ++;
+        _stepSinceLastJumped ++;
         realDistToGround = transform.localScale.y*distToGround;
         Velocity = rb.velocity;
         FlatVelocity = (new Vector3(Velocity.x,0,Velocity.z));
@@ -90,12 +98,15 @@ public class PES_Grounded : MonoBehaviour
 
     public void UpdateGrounded(bool nextGrounded)
     {
-        nextGrounded = nextGrounded && rb.velocity.y < maxVerticalSpeed;
-        if(IsGrounded != nextGrounded)
-        {
-            IsGrounded = nextGrounded;
+        if(Mathf.Abs(rb.velocity.y) >= maxVerticalSpeed && _showLog) Debug.Log("Too fast");
+        bool realNextGrounded = rb.velocity.y < maxVerticalSpeed && (nextGrounded || SnapToGround());
 
-            if(nextGrounded)
+        if(nextGrounded) _stepSinceLastGrounded = 0;
+
+        if(IsGrounded != realNextGrounded)
+        {
+            IsGrounded = realNextGrounded;
+            if(realNextGrounded)
             {
                 OnLandingInfos?.Invoke(this, new LandingEventArgs(-rb.velocity.y));
                 OnLanding?.Invoke(this, EventArgs.Empty);
@@ -103,5 +114,44 @@ public class PES_Grounded : MonoBehaviour
             else
                 OnLeavingGround?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    public void ResetJumpTracker()
+    {
+        _stepSinceLastJumped = 0;
+    }
+
+    bool SnapToGround()
+    {
+        if(_showLog)Debug.Log("Try snapping");
+        if(_stepSinceLastGrounded > 1){
+            if(_showLog) Debug.Log("Snap Aborted : Too late");
+            return false;
+        }
+        if(!Physics.Raycast(spatial.position, Vector3.down, out RaycastHit snapHit))
+        {
+            if(_showLog) Debug.Log("Snap Aborted : No Ground Under");
+            return false;
+        }
+        if(Vector3.Angle(Vector3.up, snapHit.normal) > groundedMaxAngle)
+        {
+            if(_showLog) Debug.Log("Snap Aborted : Angle to steep");
+            return false;
+        }
+        if(_stepSinceLastJumped < _minJumpStep)
+        {
+            if(_showLog) Debug.Log("Snap Aborted : Jumped recently");
+            return false;
+        }
+
+        GroundNormal = snapHit.normal;
+        float speed = rb.velocity.magnitude;
+        float dot = Vector3.Dot(rb.velocity, snapHit.normal);
+        if(dot > 0f)
+        {
+            if(_showLog) Debug.Log("Snap Aborted : Wouldn't help snap");
+            rb.velocity = (rb.velocity - snapHit.normal * dot).normalized * speed;
+        }
+        return true;
     }
 }
