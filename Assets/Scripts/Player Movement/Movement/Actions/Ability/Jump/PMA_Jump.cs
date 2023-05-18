@@ -95,6 +95,7 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
         canJump = false;
         Invoke("ForceReset", resetMaxTime);
 
+        if(_groundControl.EnableSprint) _groundControl.StopSprinting();
         rb.drag = _airControl.Data.Drag;
         _surfaceControlManager.CurrentData = _airControl.Data;
 

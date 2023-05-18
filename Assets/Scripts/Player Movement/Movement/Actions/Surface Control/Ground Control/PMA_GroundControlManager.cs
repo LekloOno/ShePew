@@ -14,6 +14,7 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
     [SerializeField] private PI_AMapsManager inputMapsManager;
     [SerializeField] private PC_Bobbing headBobber;
 
+    public bool EnableSprint{get => enableSprint;}
 
 
     bool frameFreeDrag = false;
@@ -68,8 +69,8 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
 
     public override void SurfaceControl_OnLeavingSurface(object sender, EventArgs e)
     {
-        if(enableSprint)
-            StopSprinting();
+        /*if(enableSprint)
+            StopSprinting();*/
         OnFixedUpdate -= OnGrounded;
     }
 
