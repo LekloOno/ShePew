@@ -13,6 +13,9 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
     [SerializeField] private DATA_GroundControl baseData;
     [SerializeField] private PI_AMapsManager inputMapsManager;
     [SerializeField] private PC_Bobbing headBobber;
+    
+    public EventHandler StopSprint;
+    public EventHandler StartSprint;
 
     public bool EnableSprint{get => enableSprint;}
 
@@ -105,7 +108,8 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
     }
 
     private void StartSprinting(){
-        headBobber.Enable = true;
+        //headBobber.Enable = true;
+        StartSprint?.Invoke(this, EventArgs.Empty);
         data = sprintData;
         ActivateData();
         isSprinting = true;
@@ -116,7 +120,8 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
             data = baseData;
             if(_groundState.IsGrounded)
                 ActivateData();
-            headBobber.Enable = false;
+            //headBobber.Enable = false;
+            StopSprint?.Invoke(this, EventArgs.Empty);
             isSprinting = false;
         }
     }
@@ -124,7 +129,8 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
     private void DirectKeyStopSprinting(){
         data = baseData;
         ActivateData();
-        headBobber.Enable = false;
+        //headBobber.Enable = false;
+        StopSprint?.Invoke(this, EventArgs.Empty);
         isSprinting = false;
     }
 }

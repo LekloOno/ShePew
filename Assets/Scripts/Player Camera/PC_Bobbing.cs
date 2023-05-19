@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PC_Bobbing : MonoBehaviour
 {
-    [SerializeField] private bool _enable = true;
+    [SerializeField] private bool _enable = false;
 
     public bool Enable
     {
@@ -17,6 +18,7 @@ public class PC_Bobbing : MonoBehaviour
     [SerializeField] private Transform _camera = null;
     [SerializeField] private Transform _cameraHolder = null;
     [SerializeField] private PES_Grounded _groundState;
+    [SerializeField] private PMA_GroundControlManager _groundControl;
 
     private float _toggleSpeed = 3.0f;
     private Vector3 _startPos;
@@ -24,6 +26,18 @@ public class PC_Bobbing : MonoBehaviour
     private void Awake()
     {
         _startPos = _camera.localPosition;
+        _groundControl.StartSprint += OnStartSprint;
+        _groundControl.StopSprint += OnStopSprint;
+    }
+
+    public void OnStartSprint(object sender, EventArgs e)
+    {
+        _enable = true;
+    }
+
+    public void OnStopSprint(object sender, EventArgs e)
+    {
+        _enable = false;
     }
 
     private Vector3 FootStepMotion()
