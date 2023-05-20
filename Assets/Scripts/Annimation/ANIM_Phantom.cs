@@ -13,7 +13,9 @@ public class ANIM_Phantom : MonoBehaviour
     {
         _groundControl.StartSprint += OnStartSprint;
         _groundControl.StopSprint += OnStopSprint;
-        _slide.OnSlideStarted += OnSlideStarted;
+        _groundControl.StartAirSprint += OnStartAirSprint;
+        _groundControl.StopAirSprint += OnStopAirSprint;
+        _slide.OnInputIn += OnSlideStarted;
         _slide.OnSlideStoped += OnSlideStoped;
     }
 
@@ -25,6 +27,16 @@ public class ANIM_Phantom : MonoBehaviour
     public void OnStopSprint(object sender, EventArgs e)
     {
         _animator.SetBool("IsSprinting", false);
+    }
+
+    public void OnStartAirSprint(object sender, EventArgs e)
+    {
+        _animator.SetBool("IsAirSprinting", true);
+    }
+
+    public void OnStopAirSprint(object sender, EventArgs e)
+    {
+        _animator.SetBool("IsAirSprinting", false);
     }
 
     public void OnSlideStarted(object sender, EventArgs e)

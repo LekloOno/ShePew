@@ -13,9 +13,17 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
     [SerializeField] private DATA_GroundControl baseData;
     [SerializeField] private PI_AMapsManager inputMapsManager;
     [SerializeField] private PC_Bobbing headBobber;
+
+    [SerializeField] private float _walkingSpeed = 5f;
+    [SerializeField] private bool _isWalking = false;
     
     public EventHandler StopSprint;
     public EventHandler StartSprint;
+    public EventHandler StartWalking;
+    public EventHandler StopWalking;
+
+    public EventHandler StartAirSprint;
+    public EventHandler StopAirSprint;
 
     public bool EnableSprint{get => enableSprint;}
 
@@ -23,6 +31,29 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
     bool frameFreeDrag = false;
     public bool IsSprinting {
         get => isSprinting;
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        OnFixedUpdate += CheckWalking;
+    }
+
+    public void CheckWalking(object sender, EventArgs e)
+    {
+        bool currentlyWalking = _groundState.IsGrounded && !isSprinting && _groundState.FlatSpeed >= _walkingSpeed;
+        if(currentlyWalking != _isWalking)
+        {
+            _isWalking = currentlyWalking;
+            if(_isWalking)
+            {
+                StartWalking?.Invoke(this, EventArgs.Empty);
+            }
+            else if(!isSprinting)
+            {
+                StopWalking?.Invoke(this, EventArgs.Empty);
+            }
+        }
     }
 
     public void AllowSprint(bool val)
@@ -67,7 +98,7 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
     {
         frameFreeDrag = false;
         OnFixedUpdate += OnGrounded;
-        
+        if(isSprinting) StopAirSprint?.Invoke(this, EventArgs.Empty);
     }
 
     public override void SurfaceControl_OnLeavingSurface(object sender, EventArgs e)
@@ -75,6 +106,7 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
         /*if(enableSprint)
             StopSprinting();*/
         OnFixedUpdate -= OnGrounded;
+        if(isSprinting) StartAirSprint?.Invoke(this, EventArgs.Empty);
     }
 
     void OnGrounded(object sender, EventArgs e)

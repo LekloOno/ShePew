@@ -12,6 +12,7 @@ public class PM_SC_Manager : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _groundStopSpeed = 1f;
 
+    
     public event EventHandler JumpQueue;
 
     Vector3 appliedDir;
@@ -27,7 +28,6 @@ public class PM_SC_Manager : MonoBehaviour
             appliedDir = Vector3.ProjectOnPlane(_runningInput.WishDir, _groundState.GroundNormal).normalized;
             _rb.AddForce(MovementPhysics.Acceleration(CurrentData.MaxSpeed, CurrentData.MaxAccel, _rb.velocity, _runningInput.WishDir, appliedDir), ForceMode.VelocityChange);
             if(_groundState.IsGrounded && _groundState.FlatSpeed < _groundStopSpeed) _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
-
         //}
     }
 }

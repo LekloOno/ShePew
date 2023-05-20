@@ -1965,8 +1965,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enable: 0
-  _amplitude: 0.0005
-  _waveLength: 0.15
+  _sprintAmplitude: 0.0007
+  _sprintWaveLength: 0.15
+  _walkAmplitude: 0.00016
+  _walkWaveLength: 0.22
   _camera: {fileID: 3580557493736302174}
   _cameraHolder: {fileID: 6341677608653517120}
   _groundState: {fileID: 4807475728033228202}
@@ -2238,8 +2240,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enable: 0
-  _amplitude: 0.0005
-  _waveLength: 0.15
+  _sprintAmplitude: 0.0007
+  _sprintWaveLength: 0.15
+  _walkAmplitude: 0.00015
+  _walkWaveLength: 0.22
   _camera: {fileID: 4408416569692359742}
   _cameraHolder: {fileID: 6341677608653517120}
   _groundState: {fileID: 4807475728033228202}
@@ -2940,8 +2944,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enable: 0
-  _amplitude: 0.0007
-  _waveLength: 0.15
+  _sprintAmplitude: 0.0007
+  _sprintWaveLength: 0.15
+  _walkAmplitude: 0.00016
+  _walkWaveLength: 0.22
   _camera: {fileID: 917651019246755919}
   _cameraHolder: {fileID: 6341677608653517120}
   _groundState: {fileID: 4807475728033228202}
@@ -3408,6 +3414,8 @@ MonoBehaviour:
   baseData: {fileID: 11400000, guid: 83907a2da96387e47b75cb9e22162146, type: 2}
   inputMapsManager: {fileID: 3567728572846462495}
   headBobber: {fileID: 9213251559465766345}
+  _walkingSpeed: 5
+  _isWalking: 0
 --- !u!114 &342330326108275523
 MonoBehaviour:
   m_ObjectHideFlags: 0

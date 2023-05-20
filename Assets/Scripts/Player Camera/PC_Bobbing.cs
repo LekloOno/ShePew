@@ -12,8 +12,13 @@ public class PC_Bobbing : MonoBehaviour
         set => _enable = value;
     }
 
-    [SerializeField, Range(0, 0.1f)] private float _amplitude = 0.015f;
-    [SerializeField, Range(0, 30)] private float _waveLength = 10.0f;
+    [SerializeField, Range(0, 0.01f)] private float _sprintAmplitude = 0.0007f;
+    [SerializeField, Range(0, 1)] private float _sprintWaveLength = 0.15f;
+    [SerializeField, Range(0, 0.01f)] private float _walkAmplitude = 0.0004f;
+    [SerializeField, Range(0, 1)] private float _walkWaveLength = 0.25f;
+
+    private float _amplitude;
+    private float _waveLength;
 
     [SerializeField] private Transform _camera = null;
     [SerializeField] private Transform _cameraHolder = null;
@@ -28,14 +33,30 @@ public class PC_Bobbing : MonoBehaviour
         _startPos = _camera.localPosition;
         _groundControl.StartSprint += OnStartSprint;
         _groundControl.StopSprint += OnStopSprint;
+        _groundControl.StartWalking += OnStartWalking;
+        _groundControl.StopWalking += OnStopWalking;
     }
 
     public void OnStartSprint(object sender, EventArgs e)
     {
+        _amplitude = _sprintAmplitude;
+        _waveLength = _sprintWaveLength;
         _enable = true;
     }
 
     public void OnStopSprint(object sender, EventArgs e)
+    {
+        _enable = false;
+    }
+
+    public void OnStartWalking(object sender, EventArgs e)
+    {
+        _amplitude = _walkAmplitude;
+        _waveLength = _walkWaveLength;
+        _enable = true;
+    }
+
+    public void OnStopWalking(object sender, EventArgs e)
     {
         _enable = false;
     }
