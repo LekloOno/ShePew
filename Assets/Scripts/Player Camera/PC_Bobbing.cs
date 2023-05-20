@@ -13,7 +13,7 @@ public class PC_Bobbing : MonoBehaviour
     }
 
     [SerializeField, Range(0, 0.1f)] private float _amplitude = 0.015f;
-    [SerializeField, Range(0, 30)] private float _frequency = 10.0f;
+    [SerializeField, Range(0, 30)] private float _waveLength = 10.0f;
 
     [SerializeField] private Transform _camera = null;
     [SerializeField] private Transform _cameraHolder = null;
@@ -43,8 +43,8 @@ public class PC_Bobbing : MonoBehaviour
     private Vector3 FootStepMotion()
     {
         Vector3 pos = Vector3.zero;
-        pos.y += Mathf.Sin(Time.time * _frequency) * _amplitude;
-        pos.x += Mathf.Sin(Time.time * _frequency / 2) * _amplitude * 2;
+        pos.y += Mathf.Sin((Time.time/_waveLength) * Mathf.PI) * _amplitude;
+        pos.x += Mathf.Sin((Time.time/_waveLength) * Mathf.PI / 2) * _amplitude * 2;
         return pos;
     }
 

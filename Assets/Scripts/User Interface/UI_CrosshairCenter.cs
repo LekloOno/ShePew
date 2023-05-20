@@ -16,10 +16,19 @@ public class UI_CrosshairCenter : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(sightPosition.position, sightPosition.TransformDirection(Vector3.forward), out hit, _maxRange) && hit.distance > _minRange)
+        if (Physics.Raycast(sightPosition.position, sightPosition.TransformDirection(Vector3.forward), out hit, _maxRange))
         {
-            image.transform.position = cam.WorldToScreenPoint(hit.point);
-        } else {
+            if(hit.distance > _minRange)
+            {
+                image.transform.position = cam.WorldToScreenPoint(hit.point);
+            }
+            else
+            {
+                image.transform.position = cam.WorldToScreenPoint(sightPosition.position + sightPosition.TransformDirection(Vector3.forward)*_minRange);
+            }
+        }
+        else
+        {
             image.transform.localPosition = Vector3.zero;
         }
     }

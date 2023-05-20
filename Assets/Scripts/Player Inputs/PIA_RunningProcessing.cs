@@ -55,6 +55,11 @@ public class PIA_RunningProcessing : MonoBehaviour
         SpaceWishDir = sightPosition.forward * RunningAxis.y + sightPosition.right * RunningAxis.x;
     }
 
+    public bool StopOrLess()
+    {
+        return RunningAxis.y < 0 || (RunningAxis.x == 0 && RunningAxis.y == 0);
+    }
+
     public Vector3 FreeWishDir(Vector2 input)
     {
         return flatDir.forward * input.y + flatDir.right * input.x;

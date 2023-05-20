@@ -12,6 +12,12 @@ public class PC_Control : MonoBehaviour
     public float X_Sens;
     public float Y_Sens;
 
+    private float _lookX;
+    private float _lookY;
+    
+    public float LookX {get => _lookX;}
+    public float LookY {get => _lookY;}
+
     [SerializeField] Transform _sightPosition;
     [SerializeField] Transform _cameraPosition;
     [SerializeField] Transform _flatDir;
@@ -46,12 +52,12 @@ public class PC_Control : MonoBehaviour
 
     public void OnLook()
     {
-        float lookX = _inputHandler.playerInputActions.Arena.Look.ReadValue<Vector2>().x*_globalSensAdjustment*(X_Sens+Sens);
-        float lookY = _inputHandler.playerInputActions.Arena.Look.ReadValue<Vector2>().y*_globalSensAdjustment*(Y_Sens+Sens);
+        _lookX = _inputHandler.playerInputActions.Arena.Look.ReadValue<Vector2>().x*_globalSensAdjustment*(X_Sens+Sens);
+        _lookY = _inputHandler.playerInputActions.Arena.Look.ReadValue<Vector2>().y*_globalSensAdjustment*(Y_Sens+Sens);
 
-        _xRotation = Mathf.Clamp(_xRotation-lookY, -90f, 90f);
+        _xRotation = Mathf.Clamp(_xRotation-_lookY, -90f, 90f);
 
-        _yRotation += lookX;
+        _yRotation += _lookX;
 
         _sightPosition.rotation = Quaternion.Euler(_xRotation, _yRotation, ZRotation);
         _flatDir.rotation = Quaternion.Euler(0, _yRotation, ZRotation);

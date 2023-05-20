@@ -109,10 +109,13 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
 
     private void StartSprinting(){
         //headBobber.Enable = true;
-        StartSprint?.Invoke(this, EventArgs.Empty);
-        data = sprintData;
-        ActivateData();
-        isSprinting = true;
+        if(!_runningInput.StopOrLess())
+        {
+            StartSprint?.Invoke(this, EventArgs.Empty);
+            data = sprintData;
+            ActivateData();
+            isSprinting = true;
+        }
     }
 
     public void StopSprinting(){
