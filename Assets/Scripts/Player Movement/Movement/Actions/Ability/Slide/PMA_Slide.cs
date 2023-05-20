@@ -49,6 +49,7 @@ public class PMA_Slide : PMA_Ability<DATA_Slide>
     public override void StartAbility(InputAction.CallbackContext obj)
     {
         OnInputIn?.Invoke(this, EventArgs.Empty);
+        _groundControlManager.ForceStopAirSprint();
         currentScale = slideYScale;
         scaleSpeed = yScaleDownSpeed;
         _groundControlManager.StopSprinting();

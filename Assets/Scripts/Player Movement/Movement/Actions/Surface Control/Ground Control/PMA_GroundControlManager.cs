@@ -61,6 +61,11 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
         _sprintAvailable = val;
     }
 
+    public void ForceStopAirSprint()
+    {
+        StopAirSprint?.Invoke(this, EventArgs.Empty);
+    }
+
     public void SetData(DATA_GroundControl newData)
     {
         data = newData;
