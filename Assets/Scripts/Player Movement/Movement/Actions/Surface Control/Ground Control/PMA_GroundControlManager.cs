@@ -103,7 +103,7 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
     {
         frameFreeDrag = false;
         OnFixedUpdate += OnGrounded;
-        if(isSprinting) StopAirSprint?.Invoke(this, EventArgs.Empty);
+        StopAirSprint?.Invoke(this, EventArgs.Empty);
     }
 
     public override void SurfaceControl_OnLeavingSurface(object sender, EventArgs e)
