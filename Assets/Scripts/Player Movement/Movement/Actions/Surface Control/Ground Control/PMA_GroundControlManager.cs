@@ -13,6 +13,7 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
     [SerializeField] private DATA_GroundControl baseData;
     [SerializeField] private PI_AMapsManager inputMapsManager;
     [SerializeField] private PC_Bobbing headBobber;
+    [SerializeField] private PMA_Slide _slide;
 
     [SerializeField] private float _walkingSpeed = 5f;
     [SerializeField] private bool _isWalking = false;
@@ -41,7 +42,7 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
 
     public void CheckWalking(object sender, EventArgs e)
     {
-        bool currentlyWalking = _groundState.IsGrounded && !isSprinting && _groundState.FlatSpeed >= _walkingSpeed;
+        bool currentlyWalking = _groundState.IsGrounded && !isSprinting && _groundState.FlatSpeed >= _walkingSpeed && !_slide.IsActive;
         if(currentlyWalking != _isWalking)
         {
             _isWalking = currentlyWalking;
