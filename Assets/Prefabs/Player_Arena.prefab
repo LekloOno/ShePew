@@ -301,6 +301,37 @@ MonoBehaviour:
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
+--- !u!1 &844616135877574891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9163695181119637352}
+  m_Layer: 8
+  m_Name: MoveSway
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9163695181119637352
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844616135877574891}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5418515554557376312}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &875440199716967177
 GameObject:
   m_ObjectHideFlags: 0
@@ -4402,6 +4433,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3359814885614783035}
+  - {fileID: 9163695181119637352}
   m_Father: {fileID: 4408416569692359742}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4417,9 +4449,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0678c61f7869add4b880d1a7bc3116bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _groundState: {fileID: 4807475728033228202}
+  _runningInput: {fileID: 6835891092848427981}
+  _minSpeedTrigger: 0.5
+  _keyRotationStrength: 2
+  _keyMaxPosition: 0.035
   _cameraControl: {fileID: 3154185906043877987}
   _reactive: 4
   _strength: 4
+  _mouseMaxPosition: 0.02
 --- !u!1 &8792443251926068798
 GameObject:
   m_ObjectHideFlags: 0
