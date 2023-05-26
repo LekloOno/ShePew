@@ -13,7 +13,8 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
 
     [Header("Specifics/Behavior")]
     private static string SpeedModifierKey = "JumpHoldSpeedPenalty";
-    [SerializeField] float resetMaxTime = 0.05f;
+    [SerializeField] float resetMaxTime = 0.05f;                        //If the player jump without leaving the ground, the jump wont be reseted. This forces the jump to be reseted after this amount of time.
+    [SerializeField] float speedPenaltyBuffer = 0.15f;                  //Time before the hold Speed Penalty is applied
 
     [Header("Debugging")]
     [SerializeField] float tracker_heldJumpCD = 0;
@@ -43,7 +44,7 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
 
     public override void StartAbility(InputAction.CallbackContext obj)
     {
-        _surfaceControlManager.MaxSpeedModifiers[SpeedModifierKey] = Data.HoldSpeedPenalty;
+        Invoke("ApplySpeedPenalty", speedPenaltyBuffer);
         if(canJump)
         {
             tracker_heldJumpThreshold = data.HeldJumpThreshold;
@@ -54,6 +55,7 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
 
     public override void StopAbility(InputAction.CallbackContext obj)
     {
+        CancelInvoke("ApplySpeedPenalty");
         _surfaceControlManager.MaxSpeedModifiers.Remove(SpeedModifierKey);
         OnFixedUpdate -= OnJump;
         tracker_heldJumpCD = 0;
@@ -63,6 +65,11 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
             preJumped = true;
             preJumpedTime = Time.time;
         }
+    }
+
+    void ApplySpeedPenalty()
+    {
+        _surfaceControlManager.MaxSpeedModifiers[SpeedModifierKey] = Data.HoldSpeedPenalty;
     }
 
     void OnJump(object sender, EventArgs e)
