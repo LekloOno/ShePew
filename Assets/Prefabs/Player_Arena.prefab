@@ -2545,9 +2545,9 @@ MonoBehaviour:
   _groundState: {fileID: 4807475728033228202}
   _rb: {fileID: 9104891694188603905}
   _maxTime: 0.5
-  _maxAngle: 0
-  _maxFullLurchAngle: 0
-  _wideLurchPenalty: 0
+  _maxAngle: 180
+  _maxFullLurchAngle: 160
+  _wideLurchPenalty: 0.7
 --- !u!1 &5346708505099143236
 GameObject:
   m_ObjectHideFlags: 0
@@ -3567,7 +3567,7 @@ MonoBehaviour:
   _groundControl: {fileID: 7223530406668091931}
   _surfaceControlManager: {fileID: 1056946536281351968}
   resetMaxTime: 0.05
-  holdSpeedPenalty: 0.7
+  speedPenaltyBuffer: 0.2
   tracker_heldJumpCD: 0
   tracker_heldJumpDelay: 0
   tracker_heldJumpThreshold: 0
