@@ -9,6 +9,7 @@ public class PMA_Lurch : MonoBehaviour
     [SerializeField] private PIA_RunningProcessing _runningInput;
     [SerializeField] private PI_AMapsManager inputsMM;
     [SerializeField] private PES_Grounded _groundState;
+    [SerializeField] private PM_SC_Manager _surfaceControlManager;
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _maxTime;    //Max Time after a jump in Seconds.
     [SerializeField] private float _maxAngle = 180f;   //Max Lurch Angle in Degrees.
@@ -23,6 +24,10 @@ public class PMA_Lurch : MonoBehaviour
     private float _maximumMomentumLurchPenalty;
     //The velocity coefficent of a Momentum Lurch, 1 means no penalty.
 
+    private static string _airDriftModifierKey = "AirDrift";
+    [SerializeField] private float _airDriftSpeedModifier;
+    [SerializeField] private float _airDriftAccelModifier;
+
     private float _maxSteps;    //Max Time converted in engine ticks.
     private float _maxDot;      //Max Lurch Angle converted into the max Dot Product.
     private float _maxFullLurch;//Max Full Lurch Angle converted into the max Dot Product.
@@ -36,26 +41,49 @@ public class PMA_Lurch : MonoBehaviour
         Debug.Log(_maxDot);
         _maxSteps = _maxTime/Time.fixedDeltaTime;
         _runningInput.KeyPressed += Lurch_OnKeyPressed;
+        _groundState.OnLanding += OnLanding_AirDriftEnd;
     }
 
-    public void Lurch_OnKeyPressed(object sender, Vector3 wishDir)
+    public void Lurch_OnKeyPressed(object sender, KeyPressedArgs args)
     {
-        float absDot = Mathf.Abs(Vector3.Dot(_groundState.FlatVelocity.normalized, wishDir));
-        if(!_groundState.IsGrounded && _groundState.StepSinceLastJumped < _maxSteps && absDot<=_maxDot && wishDir != Vector3.zero)
+        float absDot = Mathf.Abs(Vector3.Dot(_groundState.FlatVelocity.normalized, args.WishDir));
+        if(!_groundState.IsGrounded && _groundState.StepSinceLastJumped < _maxSteps && absDot<=_maxDot && args.WishDir != Vector3.zero)
         {
-            if(absDot < _maxFullLurch)
+            if(args.RunningAxis.y > 0)
             {
-                //MOMENTUM LURCH
-                Vector3 lerpedDir = Vector3.Lerp(_groundState.FlatVelocity.normalized, wishDir, 0.5f).normalized;
-                float speedPenalty = Mathf.Min(_groundState.FlatSpeed * _momentumLurchPenalty, _maximumMomentumLurchPenalty);
-                _rb.velocity = lerpedDir*(_groundState.FlatSpeed - speedPenalty) + new Vector3(0, _rb.velocity.y, 0);
+                //AIR DRIFT
+                _surfaceControlManager.ActivateAirDrift();
+                _surfaceControlManager.MaxSpeedModifiers[_airDriftModifierKey] = _airDriftSpeedModifier;
+                _surfaceControlManager.MaxAccelModifiers[_airDriftModifierKey] = _airDriftAccelModifier;
+                Invoke("AirDriftEnd", (_maxSteps-_groundState.StepSinceLastJumped)*Time.fixedDeltaTime);
             }
             else
             {
-                //DIRECT LURCH
-                _rb.velocity = wishDir.normalized * _groundState.FlatSpeed * _wideLurchPenalty + new Vector3(0, _rb.velocity.y, 0);
+                if(absDot < _maxFullLurch)
+                {
+                    //MOMENTUM LURCH
+                    Vector3 lerpedDir = Vector3.Lerp(_groundState.FlatVelocity.normalized, args.WishDir, 0.5f).normalized;
+                    float speedPenalty = Mathf.Min(_groundState.FlatSpeed * _momentumLurchPenalty, _maximumMomentumLurchPenalty);
+                    _rb.velocity = lerpedDir*(_groundState.FlatSpeed - speedPenalty) + new Vector3(0, _rb.velocity.y, 0);
+                }
+                else
+                {
+                    //DIRECT LURCH
+                    _rb.velocity = args.WishDir.normalized * _groundState.FlatSpeed * _wideLurchPenalty + new Vector3(0, _rb.velocity.y, 0);
+                }
             }
         }
     }
 
+    void AirDriftEnd()
+    {
+        _surfaceControlManager.MaxSpeedModifiers.Remove(_airDriftModifierKey);
+        _surfaceControlManager.MaxAccelModifiers.Remove(_airDriftModifierKey);
+        _surfaceControlManager.DeactivateAirDrift();
+    }
+
+    public void OnLanding_AirDriftEnd(object sender, EventArgs e)
+    {
+        AirDriftEnd();
+    }
 }

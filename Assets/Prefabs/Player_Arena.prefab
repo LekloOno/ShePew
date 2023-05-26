@@ -2543,11 +2543,16 @@ MonoBehaviour:
   _runningInput: {fileID: 6835891092848427981}
   inputsMM: {fileID: 3567728572846462495}
   _groundState: {fileID: 4807475728033228202}
+  _surfaceControlManager: {fileID: 0}
   _rb: {fileID: 9104891694188603905}
   _maxTime: 0.5
   _maxAngle: 180
   _maxFullLurchAngle: 160
   _wideLurchPenalty: 0.7
+  _momentumLurchPenalty: 0.05
+  _maximumMomentumLurchKMPenalty: 5
+  _airDriftSpeedModifier: 10
+  _airDriftAccelModifier: 1.5
 --- !u!1 &5346708505099143236
 GameObject:
   m_ObjectHideFlags: 0

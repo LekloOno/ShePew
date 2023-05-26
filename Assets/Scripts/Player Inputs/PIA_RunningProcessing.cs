@@ -10,10 +10,26 @@ so that each "WASD" horizontal movements scripts don't have to redo this quick o
 
 It also stores other general informations about these "WASD" inputs.
 */
+public class KeyPressedArgs : EventArgs
+{
+    private Vector3 _wishDir;
+    private Vector2 _runningAxis;
+
+    public KeyPressedArgs(Vector3 wishDir, Vector2 runningAxis)
+    {
+        _wishDir = wishDir;
+        _runningAxis = runningAxis;
+    }
+
+    public Vector3 WishDir {get => _wishDir;}
+    public Vector2 RunningAxis {get => _runningAxis;}
+}
+
+
 public class PIA_RunningProcessing : MonoBehaviour
 {
     public EventHandler OnStopOrLess;
-    public EventHandler<Vector3> KeyPressed;
+    public EventHandler<KeyPressedArgs> KeyPressed;
     public Vector3 SpaceWishDir;
     public Vector3 WishDir;
     public Vector2 RunningAxis;
@@ -36,7 +52,7 @@ public class PIA_RunningProcessing : MonoBehaviour
     public void OnKeyPressed(InputAction.CallbackContext obj)
     {
         nextRunningAxis = inputsMM.playerInputActions.Arena.Running.ReadValue<Vector2>();
-        KeyPressed?.Invoke(this, flatDir.forward * nextRunningAxis.y + flatDir.right * nextRunningAxis.x);
+        KeyPressed?.Invoke(this, new KeyPressedArgs(flatDir.forward * nextRunningAxis.y + flatDir.right * nextRunningAxis.x, nextRunningAxis));
     }
 
     void FixedUpdate()
