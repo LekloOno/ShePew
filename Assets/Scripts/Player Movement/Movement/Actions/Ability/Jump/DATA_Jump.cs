@@ -21,7 +21,4 @@ public class DATA_Jump : DATA_BaseAction
     public float JumpDecayRecover = 0;      //The time required between two jump to get full jump strength.
     public float JumpDecayFloor = 0;        //The minimum multplier of the jump strength?
     public AnimationCurve JumpDecayCurve;   //Explicit
-
-    [Header("PreJump")]
-    public float PreJumpCache = 0.03f;      //Cache for the jump input
 }

@@ -2181,7 +2181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _groundState: {fileID: 4807475728033228202}
   _surfaceControlManager: {fileID: 1056946536281351968}
-  _minSpeed: 4
+  _minSpeed: 6
   _boostStrength: 0.04
   _boostCurveSmoothness: 0.4
   _boostTime: 2
@@ -2593,9 +2593,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _runningInput: {fileID: 6835891092848427981}
+  _jumpProcessing: {fileID: 3285868391626717714}
   inputsMM: {fileID: 3567728572846462495}
   _groundState: {fileID: 4807475728033228202}
-  _surfaceControlManager: {fileID: 0}
+  _surfaceControlManager: {fileID: 1056946536281351968}
   _rb: {fileID: 9104891694188603905}
   _maxTime: 0.5
   _maxAngle: 180
@@ -2647,6 +2648,7 @@ GameObject:
   - component: {fileID: 7140473933293055958}
   - component: {fileID: 3567728572846462495}
   - component: {fileID: 6835891092848427981}
+  - component: {fileID: 3285868391626717714}
   m_Layer: 0
   m_Name: InputHandler
   m_TagString: Untagged
@@ -2701,6 +2703,20 @@ MonoBehaviour:
   inputsMM: {fileID: 3567728572846462495}
   flatDir: {fileID: 5578641028859296546}
   sightPosition: {fileID: 563006089797712205}
+--- !u!114 &3285868391626717714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5465494180848850327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bafc45367a06ad54cad4257f7b038a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputMapsManager: {fileID: 3567728572846462495}
+  _bufferWindow: 0.03
 --- !u!1 &5736760012575996836
 GameObject:
   m_ObjectHideFlags: 0
@@ -3302,6 +3318,7 @@ MonoBehaviour:
   FlatSpeed: 0
   Velocity: {x: 0, y: 0, z: 0}
   FlatVelocity: {x: 0, y: 0, z: 0}
+  _jumpProcessing: {fileID: 3285868391626717714}
   rb: {fileID: 9104891694188603905}
   spatial: {fileID: 1455518778984284135}
   body: {fileID: 1387117402479657595}
@@ -3311,7 +3328,7 @@ MonoBehaviour:
   distToGround: 1
   groundedRadius: 0.28
   groundedMaxAngle: 45
-  maxVerticalSpeed: 4.6
+  maxVerticalSpeed: 4
   _showLog: 0
 --- !u!1 &6601461893437523228
 GameObject:
@@ -3620,6 +3637,7 @@ MonoBehaviour:
   _runningInput: {fileID: 6835891092848427981}
   _groundState: {fileID: 4807475728033228202}
   inputMapsManager: {fileID: 3567728572846462495}
+  _jumpProcessing: {fileID: 3285868391626717714}
   _airControl: {fileID: 4224766701069334050}
   _groundControl: {fileID: 7223530406668091931}
   _surfaceControlManager: {fileID: 1056946536281351968}

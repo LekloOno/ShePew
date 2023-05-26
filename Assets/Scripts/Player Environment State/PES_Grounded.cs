@@ -24,6 +24,7 @@ public class PES_Grounded : MonoBehaviour
     public Vector3 FlatVelocity;
     
     [Header("Tweak")]
+    [SerializeField] PIA_JumpProcessing _jumpProcessing;
     [SerializeField] Rigidbody rb;
     [SerializeField] Transform spatial;
     [SerializeField] Transform body;
@@ -42,10 +43,8 @@ public class PES_Grounded : MonoBehaviour
     float realDistToGround;
 
     private float _stepSinceLastGrounded = 0;
-    private float _stepSinceLastJumped = 5;
     private float _minJumpStep = 5;
 
-    public float StepSinceLastJumped { get=>_stepSinceLastJumped;}
 
     [SerializeField] bool _showLog;
 
@@ -65,7 +64,6 @@ public class PES_Grounded : MonoBehaviour
     void FixedUpdate()
     {
         _stepSinceLastGrounded ++;
-        _stepSinceLastJumped ++;
         realDistToGround = transform.localScale.y*distToGround;
         Velocity = rb.velocity;
         FlatVelocity = (new Vector3(Velocity.x,0,Velocity.z));
@@ -119,11 +117,6 @@ public class PES_Grounded : MonoBehaviour
         }
     }
 
-    public void ResetJumpTracker()
-    {
-        _stepSinceLastJumped = 0;
-    }
-
     bool SnapToGround()
     {
         if(_showLog)Debug.Log("Try snapping");
@@ -141,7 +134,7 @@ public class PES_Grounded : MonoBehaviour
             if(_showLog) Debug.Log("Snap Aborted : Angle to steep");
             return false;
         }
-        if(_stepSinceLastJumped < _minJumpStep)
+        if(_jumpProcessing.StepSinceLastJumped < _minJumpStep)
         {
             if(_showLog) Debug.Log("Snap Aborted : Jumped recently");
             return false;

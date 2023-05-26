@@ -21600,17 +21600,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1851904113 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1056946536281351968, guid: 511b297f7223720478b243e11ca807e0, type: 3}
-  m_PrefabInstance: {fileID: 755600272708642549}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07d095c1cf8751e44893b10ad8c58b06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &1880085998
 Mesh:
   m_ObjectHideFlags: 0
@@ -29862,10 +29851,6 @@ PrefabInstance:
       propertyPath: _maxSnapHeight
       value: 0.35
       objectReference: {fileID: 0}
-    - target: {fileID: 4807475728033228202, guid: 511b297f7223720478b243e11ca807e0, type: 3}
-      propertyPath: maxVerticalSpeed
-      value: 3.8
-      objectReference: {fileID: 0}
     - target: {fileID: 4958507525245985966, guid: 511b297f7223720478b243e11ca807e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -76.1
@@ -30098,10 +30083,6 @@ PrefabInstance:
       propertyPath: _data
       value: 
       objectReference: {fileID: 11400000, guid: dd57a900c2678d5479799cf68b4e1d93, type: 2}
-    - target: {fileID: 8926691363446406127, guid: 511b297f7223720478b243e11ca807e0, type: 3}
-      propertyPath: _surfaceControlManager
-      value: 
-      objectReference: {fileID: 1851904113}
     - target: {fileID: 9100977782302640045, guid: 511b297f7223720478b243e11ca807e0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0004705991

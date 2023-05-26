@@ -7,6 +7,7 @@ using System;
 [DefaultExecutionOrder(50)]
 public class PMA_Jump : PMA_Ability<DATA_Jump>
 {
+    [SerializeField] private PIA_JumpProcessing _jumpProcessing;
     [SerializeField] private PMA_AirControl _airControl;
     [SerializeField] private PMA_GroundControlManager _groundControl;
     [SerializeField] private PM_SC_Manager _surfaceControlManager;
@@ -25,9 +26,6 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
     [SerializeField] bool canJump = true;
 
     public EventHandler<JumpEventArgs> OnJumped;
-
-    private bool preJumped = false;
-    private float preJumpedTime = -Mathf.Infinity;
 
     #region Setup
 
@@ -59,12 +57,6 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
         _surfaceControlManager.MaxSpeedModifiers.Remove(SpeedModifierKey);
         OnFixedUpdate -= OnJump;
         tracker_heldJumpCD = 0;
-
-        if(!_groundState.IsGrounded)
-        {
-            preJumped = true;
-            preJumpedTime = Time.time;
-        }
     }
 
     void ApplySpeedPenalty()
@@ -128,7 +120,7 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
         if(currentRecover <= 0)
             OnFixedUpdate += RecoverDecay;
 
-        _groundState.ResetJumpTracker();
+        _jumpProcessing.ResetJumpTracker();
         OnJumped?.Invoke(this, new JumpEventArgs((force*recoverMultiplier)/data.TapJumpForce));
     }
 
@@ -150,13 +142,9 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
 
     public void Jump_OnLanding(object sender, EventArgs e)
     {
-        if(preJumped)
+        if(_jumpProcessing.UseBuffer())
         {
-            preJumped = false;
-            if(Time.time - preJumpedTime < data.PreJumpCache)
-            {
-                Jump(data.TapJumpForce);
-            }
+            Jump(data.TapJumpForce);
         }
     }
 

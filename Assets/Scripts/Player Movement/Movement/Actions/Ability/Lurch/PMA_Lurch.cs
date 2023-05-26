@@ -7,6 +7,7 @@ using System;
 public class PMA_Lurch : MonoBehaviour
 {
     [SerializeField] private PIA_RunningProcessing _runningInput;
+    [SerializeField] private PIA_JumpProcessing _jumpProcessing;
     [SerializeField] private PI_AMapsManager inputsMM;
     [SerializeField] private PES_Grounded _groundState;
     [SerializeField] private PM_SC_Manager _surfaceControlManager;
@@ -47,7 +48,7 @@ public class PMA_Lurch : MonoBehaviour
     public void Lurch_OnKeyPressed(object sender, KeyPressedArgs args)
     {
         float absDot = Mathf.Abs(Vector3.Dot(_groundState.FlatVelocity.normalized, args.WishDir));
-        if(!_groundState.IsGrounded && _groundState.StepSinceLastJumped < _maxSteps && absDot<=_maxDot && args.WishDir != Vector3.zero)
+        if(!_groundState.IsGrounded && _jumpProcessing.StepSinceLastJumped < _maxSteps && absDot<=_maxDot && args.WishDir != Vector3.zero)
         {
             if(args.RunningAxis.y > 0)
             {
@@ -55,7 +56,7 @@ public class PMA_Lurch : MonoBehaviour
                 _surfaceControlManager.ActivateAirDrift();
                 _surfaceControlManager.MaxSpeedModifiers[_airDriftModifierKey] = _airDriftSpeedModifier;
                 _surfaceControlManager.MaxAccelModifiers[_airDriftModifierKey] = _airDriftAccelModifier;
-                Invoke("AirDriftEnd", (_maxSteps-_groundState.StepSinceLastJumped)*Time.fixedDeltaTime);
+                Invoke("AirDriftEnd", (_maxSteps-_jumpProcessing.StepSinceLastJumped)*Time.fixedDeltaTime);
             }
             else
             {
