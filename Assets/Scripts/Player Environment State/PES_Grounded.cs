@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[DefaultExecutionOrder(49)]
 public class PES_Grounded : MonoBehaviour
 {
     [Header("States")]

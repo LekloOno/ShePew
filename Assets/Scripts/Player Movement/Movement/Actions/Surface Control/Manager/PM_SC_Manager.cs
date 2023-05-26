@@ -33,8 +33,8 @@ public class PM_SC_Manager : MonoBehaviour
             appliedDir = Vector3.ProjectOnPlane(_runningInput.WishDir, _groundState.GroundNormal).normalized;
             if(_isAirDrifting && !_groundState.IsGrounded)
             {
-                Vector3 acceleratedVel = _rb.velocity + MovementPhysics.Acceleration(MaxSpeed(), MaxAccel(), _rb.velocity, _runningInput.WishDir, appliedDir);
-                _rb.velocity = acceleratedVel.normalized * Mathf.Min(acceleratedVel.magnitude, _groundState.FlatSpeed);
+                Vector3 acceleratedVel = _groundState.FlatVelocity + MovementPhysics.Acceleration(MaxSpeed(), MaxAccel(), _rb.velocity, _runningInput.WishDir, _runningInput.WishDir);
+                _rb.velocity = acceleratedVel.normalized * Mathf.Min(acceleratedVel.magnitude, _groundState.FlatSpeed) + new Vector3(0,_rb.velocity.y,0);
             }
             else
             {
