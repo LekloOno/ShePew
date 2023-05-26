@@ -3567,6 +3567,7 @@ MonoBehaviour:
   _groundControl: {fileID: 7223530406668091931}
   _surfaceControlManager: {fileID: 1056946536281351968}
   resetMaxTime: 0.05
+  holdSpeedPenalty: 0.7
   tracker_heldJumpCD: 0
   tracker_heldJumpDelay: 0
   tracker_heldJumpThreshold: 0

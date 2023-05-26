@@ -15,6 +15,7 @@ public class DATA_Jump : DATA_BaseAction
     public float HeldJumpCD = 0.3f;         //The cooldown between two jump when the jump bind is held down.
     public float HeldJumpDelay = 0.02f;     //The delay between the moment you land and the moment you jump if the jump is considered held.
     public float HeldJumpThreshold = 0.07f; //If you held the jump bind down since at least this much time, the jump will be considered held.
+    public float HoldSpeedPenalty = 0.7f;   //The MaxSpeed Modifier applied whenever space bar is down. 1 means it has no effect, <1 means it is a penalty.
 
     [Header("Decay")]
     public float JumpDecayRecover = 0;      //The time required between two jump to get full jump strength.

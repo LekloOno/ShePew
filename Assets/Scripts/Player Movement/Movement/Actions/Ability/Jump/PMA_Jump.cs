@@ -12,6 +12,7 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
     [SerializeField] private PM_SC_Manager _surfaceControlManager;
 
     [Header("Specifics/Behavior")]
+    private static string SpeedModifierKey = "JumpHoldSpeedPenalty";
     [SerializeField] float resetMaxTime = 0.05f;
 
     [Header("Debugging")]
@@ -42,6 +43,7 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
 
     public override void StartAbility(InputAction.CallbackContext obj)
     {
+        _surfaceControlManager.MaxSpeedModifiers[SpeedModifierKey] = Data.HoldSpeedPenalty;
         if(canJump)
         {
             tracker_heldJumpThreshold = data.HeldJumpThreshold;
@@ -52,6 +54,7 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
 
     public override void StopAbility(InputAction.CallbackContext obj)
     {
+        _surfaceControlManager.MaxSpeedModifiers.Remove(SpeedModifierKey);
         OnFixedUpdate -= OnJump;
         tracker_heldJumpCD = 0;
 
