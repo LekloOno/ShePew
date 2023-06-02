@@ -27,6 +27,8 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
 
     public EventHandler<JumpEventArgs> OnJumped;
 
+    private float debugShit = 0;
+
     #region Setup
 
     protected override void Start()
@@ -70,6 +72,8 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
         {
             if(tracker_heldJumpThreshold > 0)
             {
+                //Debug.Log("NotBuffered" + (Time.time-debugShit));
+                debugShit = Time.time;
                 Jump(data.TapJumpForce);
             }
             else
@@ -98,6 +102,7 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
         Invoke("ForceReset", resetMaxTime);
 
         if(_groundControl.EnableSprint) _groundControl.StopSprinting();
+        _groundControl.ForceCancelGrounded();
         rb.drag = _airControl.Data.Drag;
         _surfaceControlManager.CurrentData = _airControl.Data;
 
@@ -144,6 +149,8 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
     {
         if(_jumpProcessing.UseBuffer())
         {
+            //Debug.Log("Buffer" + (Time.time-debugShit));
+            debugShit = Time.time;
             Jump(data.TapJumpForce);
         }
     }

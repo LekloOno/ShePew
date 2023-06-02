@@ -1598,7 +1598,6 @@ GameObject:
   - component: {fileID: 3614840876658692421}
   - component: {fileID: 2424722929334151169}
   - component: {fileID: 3497682732247788292}
-  - component: {fileID: 5464497611976721979}
   m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
@@ -1671,20 +1670,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5464497611976721979
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3292447935216782923}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &3308463480205885602
 GameObject:
   m_ObjectHideFlags: 0
@@ -3328,7 +3313,7 @@ MonoBehaviour:
   distToGround: 1
   groundedRadius: 0.28
   groundedMaxAngle: 45
-  maxVerticalSpeed: 4
+  maxVerticalSpeed: 5
   _showLog: 0
 --- !u!1 &6601461893437523228
 GameObject:
@@ -4625,15 +4610,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0678c61f7869add4b880d1a7bc3116bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundState: {fileID: 4807475728033228202}
-  _runningInput: {fileID: 6835891092848427981}
-  _minSpeedTrigger: 0.5
-  _keyRotationStrength: 2
-  _keyMaxPosition: 0.035
   _cameraControl: {fileID: 3154185906043877987}
   _reactive: 4
-  _strength: 4
-  _mouseMaxPosition: 0.02
+  _groundState: {fileID: 4807475728033228202}
+  _runningInput: {fileID: 6835891092848427981}
+  _maxPosition: 0
+  _maxRotation: 0
+  _minSpeedTrigger: 0.5
+  _keyRotationStrength: 2
+  _keyPositionStrength: 0
+  _mouseRotationStrength: 0
+  _mousePositionStrength: 0
 --- !u!1 &8792443251926068798
 GameObject:
   m_ObjectHideFlags: 0

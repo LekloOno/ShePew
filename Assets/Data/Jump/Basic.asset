@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Basic
   m_EditorClassIdentifier: 
   HeldJumpForce: 4
-  TapJumpForce: 4.3
+  TapJumpForce: 3.9
   PreYMulltiplier: 0
   HeldJumpCD: 0.3
   HeldJumpDelay: 0
-  HeldJumpThreshold: 0
+  HeldJumpThreshold: 0.08
   HoldSpeedPenalty: 0.56
   JumpDecayRecover: 1.5
   JumpDecayFloor: 0.55
@@ -54,4 +54,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  PreJumpCache: 0.03

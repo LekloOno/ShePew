@@ -100,7 +100,7 @@ public class PES_Grounded : MonoBehaviour
     public void UpdateGrounded(bool nextGrounded)
     {
         if(Mathf.Abs(rb.velocity.y) >= maxVerticalSpeed && _showLog) Debug.Log("Too fast");
-        bool realNextGrounded = rb.velocity.y < maxVerticalSpeed && (nextGrounded || SnapToGround());
+        bool realNextGrounded = Mathf.Abs(rb.velocity.y) < maxVerticalSpeed && (nextGrounded || SnapToGround());
 
         if(nextGrounded) _stepSinceLastGrounded = 0;
 

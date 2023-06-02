@@ -125,6 +125,11 @@ public class PMA_GroundControlManager : PMA_SurfaceControl<DATA_GroundControl>
         }
     }
 
+    public void ForceCancelGrounded()
+    {
+        OnFixedUpdate -= OnGrounded;
+    }
+
     public void OnSprintDown(InputAction.CallbackContext obj)
     {
         if(_groundState.IsGrounded && CanSprint())
