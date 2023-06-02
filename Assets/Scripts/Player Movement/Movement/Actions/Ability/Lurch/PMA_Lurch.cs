@@ -39,7 +39,7 @@ public class PMA_Lurch : MonoBehaviour
         _maximumMomentumLurchPenalty = _maximumMomentumLurchKMPenalty/3.6f;
         _maxDot = Mathf.Abs(Mathf.Cos(Mathf.Deg2Rad * _maxAngle));
         _maxFullLurch = Mathf.Abs(Mathf.Cos(Mathf.Deg2Rad * _maxFullLurchAngle));
-        Debug.Log(_maxDot);
+        //Debug.Log(_maxDot);
         _maxSteps = _maxTime/Time.fixedDeltaTime;
         _runningInput.KeyPressed += Lurch_OnKeyPressed;
         _groundState.OnLanding += OnLanding_AirDriftEnd;

@@ -19957,6 +19957,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &1315840025 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7791250405540271408, guid: 511b297f7223720478b243e11ca807e0, type: 3}
+  m_PrefabInstance: {fileID: 755600272708642549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfb513bbdb703f14684f9dee0d8d3328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1329532935
 Mesh:
   m_ObjectHideFlags: 0
@@ -37090,8 +37101,20 @@ PrefabInstance:
       value: -45.584
       objectReference: {fileID: 0}
     - target: {fileID: 8556197192171505299, guid: 511b297f7223720478b243e11ca807e0, type: 3}
+      propertyPath: _slide
+      value: 
+      objectReference: {fileID: 1315840025}
+    - target: {fileID: 8556197192171505299, guid: 511b297f7223720478b243e11ca807e0, type: 3}
       propertyPath: _stunThreshold
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556197192171505299, guid: 511b297f7223720478b243e11ca807e0, type: 3}
+      propertyPath: _stunDragMultiplier
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556197192171505299, guid: 511b297f7223720478b243e11ca807e0, type: 3}
+      propertyPath: _stunSpeedMultiplier
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8926691363446406127, guid: 511b297f7223720478b243e11ca807e0, type: 3}
       propertyPath: _data

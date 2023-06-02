@@ -25,6 +25,8 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
 
     [SerializeField] bool canJump = true;
 
+    private bool _jumpDown = false;
+
     public EventHandler<JumpEventArgs> OnJumped;
 
     private float debugShit = 0;
@@ -37,13 +39,14 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
         base.Start();
         
         _groundState.OnLeavingGround += Jump_OnLeavingGround;
-        _groundState.OnLanding += Jump_OnLanding;
+        _groundState.OnLandingInfos += Jump_OnLanding;
     }
 
     #endregion
 
     public override void StartAbility(InputAction.CallbackContext obj)
     {
+        _jumpDown = true;
         Invoke("ApplySpeedPenalty", speedPenaltyBuffer);
         if(canJump)
         {
@@ -55,6 +58,7 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
 
     public override void StopAbility(InputAction.CallbackContext obj)
     {
+        _jumpDown = false;
         CancelInvoke("ApplySpeedPenalty");
         _surfaceControlManager.MaxSpeedModifiers.Remove(SpeedModifierKey);
         OnFixedUpdate -= OnJump;
@@ -85,7 +89,10 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
                     if(tracker_heldJumpDelay > 0)
                         tracker_heldJumpDelay -= Time.fixedDeltaTime;
                     else
-                        Jump(data.HeldJumpForce);
+                    {
+                        Debug.Log(Mathf.Min(1,15+rb.velocity.y));
+                        Jump(data.HeldJumpForce*(Mathf.Min(1,15+rb.velocity.y)));
+                    }
                 }
             }
         }
@@ -145,13 +152,19 @@ public class PMA_Jump : PMA_Ability<DATA_Jump>
         canJump = true;
     }
 
-    public void Jump_OnLanding(object sender, EventArgs e)
+    public void Jump_OnLanding(object sender, LandingEventArgs e)
     {
         if(_jumpProcessing.UseBuffer())
         {
             //Debug.Log("Buffer" + (Time.time-debugShit));
             debugShit = Time.time;
             Jump(data.TapJumpForce);
+        }
+        else if(e.Speed > 15f && _jumpDown)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            canJump = false;
+            Invoke("ForceReset", resetMaxTime*10);
         }
     }
 

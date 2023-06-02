@@ -54,7 +54,7 @@ public class ANIM_WeaponSway : MonoBehaviour
 
         //Quaternion targetRotation = rotationX * rotationY * rotationZ * moveRotationX * moveRotationZ;
         Quaternion targetRotation = Quaternion.Euler(_xRotation, _yRotation, _zRotation);
-        Debug.Log(targetRotation.eulerAngles);
+        //Debug.Log(targetRotation.eulerAngles);
 
         //Vector3 targetPosition = Mathf.Min(mousePosition + movePosition, _maxPosition);
         Vector3 targetPosition = MaxSwayPosition(mousePosition + movePosition);
