@@ -13,6 +13,8 @@ public class PMA_FallBoost : MonoBehaviour
     [SerializeField] private float _boostCurveSmoothness = 0.4f;
     [SerializeField] private float _boostTime = 2f;
     [SerializeField] private float _decayStrength = 1.5f;
+    [SerializeField] private float _stunThreshold = 20f;
+    [SerializeField] private float _stunSpeedMultiplier = 0.2f;
     private float _initBoost;
     private static string _fallBoostModifierKey = "FallBoost";
     private float _startTime;
@@ -35,7 +37,15 @@ public class PMA_FallBoost : MonoBehaviour
         Debug.Log(e.Speed);
         if(e.Speed >= _minSpeed)
         {
-            _initBoost = 1+Mathf.Pow(_boostStrength*(e.Speed-_minSpeed), _boostCurveSmoothness);
+            if(e.Speed < _stunThreshold)
+            {
+                _initBoost = 1+Mathf.Pow(_boostStrength*(e.Speed-_minSpeed), _boostCurveSmoothness);
+                
+            }
+            else
+            {
+                _initBoost = _stunSpeedMultiplier;
+            }
             _startTime = Time.time;
             _surfaceControlManager.MaxSpeedModifiers[_fallBoostModifierKey] = _initBoost;
             OnFixedUpdate += OnFixedUpdate_FallBoost;

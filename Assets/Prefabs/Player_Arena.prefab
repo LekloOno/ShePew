@@ -2169,8 +2169,9 @@ MonoBehaviour:
   _minSpeed: 6
   _boostStrength: 0.04
   _boostCurveSmoothness: 0.4
-  _boostTime: 2
+  _boostTime: 1.5
   _decayStrength: 1.5
+  _stunThreshold: 20
 --- !u!1 &4173150749461109031
 GameObject:
   m_ObjectHideFlags: 0

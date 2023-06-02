@@ -125,6 +125,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DEBUG_TP"",
+                    ""type"": ""Button"",
+                    ""id"": ""75b81d38-f1c2-4140-b40e-4ad63bad001e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -345,6 +354,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52cd6c51-c9ed-4697-a8c5-a90ce05acae0"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DEBUG_TP"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -943,6 +963,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Arena_Backward = m_Arena.FindAction("Backward", throwIfNotFound: true);
         m_Arena_Right = m_Arena.FindAction("Right", throwIfNotFound: true);
         m_Arena_Left = m_Arena.FindAction("Left", throwIfNotFound: true);
+        m_Arena_DEBUG_TP = m_Arena.FindAction("DEBUG_TP", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1025,6 +1046,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Arena_Backward;
     private readonly InputAction m_Arena_Right;
     private readonly InputAction m_Arena_Left;
+    private readonly InputAction m_Arena_DEBUG_TP;
     public struct ArenaActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1040,6 +1062,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Backward => m_Wrapper.m_Arena_Backward;
         public InputAction @Right => m_Wrapper.m_Arena_Right;
         public InputAction @Left => m_Wrapper.m_Arena_Left;
+        public InputAction @DEBUG_TP => m_Wrapper.m_Arena_DEBUG_TP;
         public InputActionMap Get() { return m_Wrapper.m_Arena; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1082,6 +1105,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Left.started -= m_Wrapper.m_ArenaActionsCallbackInterface.OnLeft;
                 @Left.performed -= m_Wrapper.m_ArenaActionsCallbackInterface.OnLeft;
                 @Left.canceled -= m_Wrapper.m_ArenaActionsCallbackInterface.OnLeft;
+                @DEBUG_TP.started -= m_Wrapper.m_ArenaActionsCallbackInterface.OnDEBUG_TP;
+                @DEBUG_TP.performed -= m_Wrapper.m_ArenaActionsCallbackInterface.OnDEBUG_TP;
+                @DEBUG_TP.canceled -= m_Wrapper.m_ArenaActionsCallbackInterface.OnDEBUG_TP;
             }
             m_Wrapper.m_ArenaActionsCallbackInterface = instance;
             if (instance != null)
@@ -1119,6 +1145,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Left.started += instance.OnLeft;
                 @Left.performed += instance.OnLeft;
                 @Left.canceled += instance.OnLeft;
+                @DEBUG_TP.started += instance.OnDEBUG_TP;
+                @DEBUG_TP.performed += instance.OnDEBUG_TP;
+                @DEBUG_TP.canceled += instance.OnDEBUG_TP;
             }
         }
     }
@@ -1286,6 +1315,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnBackward(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
+        void OnDEBUG_TP(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

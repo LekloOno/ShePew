@@ -45,6 +45,7 @@ public class PES_Grounded : MonoBehaviour
     private float _stepSinceLastGrounded = 0;
     private float _minJumpStep = 5;
 
+    private float _previousVerticalSpeed = 0;
 
     [SerializeField] bool _showLog;
 
@@ -68,6 +69,8 @@ public class PES_Grounded : MonoBehaviour
         Velocity = rb.velocity;
         FlatVelocity = (new Vector3(Velocity.x,0,Velocity.z));
         FlatSpeed = FlatVelocity.magnitude;
+
+        if(rb.velocity.y < _previousVerticalSpeed) _previousVerticalSpeed = rb.velocity.y;
 
         if(Physics.Raycast(spatial.position, Vector3.down, out groundHit, Mathf.Infinity, ground))
         {
@@ -109,7 +112,8 @@ public class PES_Grounded : MonoBehaviour
             IsGrounded = realNextGrounded;
             if(realNextGrounded)
             {
-                OnLandingInfos?.Invoke(this, new LandingEventArgs(-rb.velocity.y));
+                OnLandingInfos?.Invoke(this, new LandingEventArgs(-_previousVerticalSpeed));
+                _previousVerticalSpeed = rb.velocity.y;
                 OnLanding?.Invoke(this, EventArgs.Empty);
             }  
             else
