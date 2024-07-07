@@ -17,6 +17,8 @@ public class PMA_FallBoost : MonoBehaviour
     [SerializeField] private float _stunThreshold = 20f;
     [SerializeField] private float _stunSpeedMultiplier = 0.2f;
     [SerializeField] private float _stunDragMultiplier = 20;
+    [SerializeField] private float _stunSlideDragMultiplier = 6f;
+    [SerializeField] private float _stunSlideSpeedMultiplier = 1f;
     private float _initBoost;
     private float _initDrag;
     private static string _fallBoostModifierKey = "FallBoost";
@@ -50,8 +52,8 @@ public class PMA_FallBoost : MonoBehaviour
             {
                 Debug.Log("Stun");
                 _stunStartTime = Time.time;
-                _initBoost = _stunSpeedMultiplier;
-                _initDrag = _stunDragMultiplier * (_slide.IsActive ? 4 : 1);
+                _initBoost = _stunSpeedMultiplier * (_slide.IsActive ? _stunSlideSpeedMultiplier : 1);
+                _initDrag = _stunDragMultiplier * (_slide.IsActive ? _stunSlideDragMultiplier : 1);
                 Debug.Log(_slide.IsActive);
                 _surfaceControlManager.DragModifiers[_fallBoostModifierKey] = _initDrag;
                 OnFixedUpdate += OnFixedUpdate_FallStun;

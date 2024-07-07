@@ -134,6 +134,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WeaponSecondary"",
+                    ""type"": ""Button"",
+                    ""id"": ""8559b16c-5df7-4943-b610-43a519d3bef4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -365,6 +374,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DEBUG_TP"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af4cad7e-03e2-4639-86f3-3b43f7729ab6"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponSecondary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -964,6 +984,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Arena_Right = m_Arena.FindAction("Right", throwIfNotFound: true);
         m_Arena_Left = m_Arena.FindAction("Left", throwIfNotFound: true);
         m_Arena_DEBUG_TP = m_Arena.FindAction("DEBUG_TP", throwIfNotFound: true);
+        m_Arena_WeaponSecondary = m_Arena.FindAction("WeaponSecondary", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1047,6 +1068,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Arena_Right;
     private readonly InputAction m_Arena_Left;
     private readonly InputAction m_Arena_DEBUG_TP;
+    private readonly InputAction m_Arena_WeaponSecondary;
     public struct ArenaActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1063,6 +1085,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Right => m_Wrapper.m_Arena_Right;
         public InputAction @Left => m_Wrapper.m_Arena_Left;
         public InputAction @DEBUG_TP => m_Wrapper.m_Arena_DEBUG_TP;
+        public InputAction @WeaponSecondary => m_Wrapper.m_Arena_WeaponSecondary;
         public InputActionMap Get() { return m_Wrapper.m_Arena; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1108,6 +1131,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @DEBUG_TP.started -= m_Wrapper.m_ArenaActionsCallbackInterface.OnDEBUG_TP;
                 @DEBUG_TP.performed -= m_Wrapper.m_ArenaActionsCallbackInterface.OnDEBUG_TP;
                 @DEBUG_TP.canceled -= m_Wrapper.m_ArenaActionsCallbackInterface.OnDEBUG_TP;
+                @WeaponSecondary.started -= m_Wrapper.m_ArenaActionsCallbackInterface.OnWeaponSecondary;
+                @WeaponSecondary.performed -= m_Wrapper.m_ArenaActionsCallbackInterface.OnWeaponSecondary;
+                @WeaponSecondary.canceled -= m_Wrapper.m_ArenaActionsCallbackInterface.OnWeaponSecondary;
             }
             m_Wrapper.m_ArenaActionsCallbackInterface = instance;
             if (instance != null)
@@ -1148,6 +1174,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @DEBUG_TP.started += instance.OnDEBUG_TP;
                 @DEBUG_TP.performed += instance.OnDEBUG_TP;
                 @DEBUG_TP.canceled += instance.OnDEBUG_TP;
+                @WeaponSecondary.started += instance.OnWeaponSecondary;
+                @WeaponSecondary.performed += instance.OnWeaponSecondary;
+                @WeaponSecondary.canceled += instance.OnWeaponSecondary;
             }
         }
     }
@@ -1316,6 +1345,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnRight(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
         void OnDEBUG_TP(InputAction.CallbackContext context);
+        void OnWeaponSecondary(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
