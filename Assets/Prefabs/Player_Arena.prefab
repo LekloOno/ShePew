@@ -2164,6 +2164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d262726470f7424e8de9a2a461753af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slide: {fileID: 0}
   _groundState: {fileID: 4807475728033228202}
   _surfaceControlManager: {fileID: 1056946536281351968}
   _minSpeed: 6
@@ -2172,6 +2173,10 @@ MonoBehaviour:
   _boostTime: 1.5
   _decayStrength: 1.5
   _stunThreshold: 20
+  _stunSpeedMultiplier: 0.2
+  _stunDragMultiplier: 20
+  _stunSlideDragMultiplier: 6
+  _stunSlideSpeedMultiplier: 1
 --- !u!1 &4173150749461109031
 GameObject:
   m_ObjectHideFlags: 0
@@ -2323,7 +2328,7 @@ MonoBehaviour:
   yScaleDownSpeed: 0.2
   yScaleUpSpeed: 0.35
   slideYScale: 0.6
-  slideMinSpeed: 7.8
+  slideMinSpeed: 6
 --- !u!1 &4750696862162989136
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,9 +2592,10 @@ MonoBehaviour:
   _maxTime: 0.5
   _maxAngle: 180
   _maxFullLurchAngle: 160
-  _wideLurchPenalty: 0.7
+  _directLurchPenalty: 0.3
   _momentumLurchPenalty: 0.05
   _maximumMomentumLurchKMPenalty: 5
+  _maximumDirectLurchKMPenalty: 12
   _airDriftSpeedModifier: 10
   _airDriftAccelModifier: 1.5
 --- !u!1 &5346708505099143236
@@ -4163,6 +4169,7 @@ MonoBehaviour:
   _animator: {fileID: 4268297364460051305}
   _groundControl: {fileID: 7223530406668091931}
   _slide: {fileID: 7791250405540271408}
+  _AMapsManager: {fileID: 0}
 --- !u!1 &8065589419416550151
 GameObject:
   m_ObjectHideFlags: 0
